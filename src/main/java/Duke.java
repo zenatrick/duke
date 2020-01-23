@@ -42,7 +42,11 @@ public class Duke {
         String inputCommand = scanner.nextLine().trim();
         while (!inputCommand.equals("bye")) {
             System.out.println(horLine);
-            handleInputCommand(inputCommand);
+            try {
+                handleInputCommand(inputCommand);
+            } catch (DukeException e) {
+                System.out.printf("\t %s\n", e.getMessage());
+            }
             System.out.printf("%s\n\n", horLine);
             inputCommand = scanner.nextLine().trim();
         }
@@ -55,14 +59,24 @@ public class Duke {
         scanner.close();
     }
 
-    private static void handleInputCommand(String inputCommand) {
+    private static void handleInputCommand(String inputCommand) throws DukeException {
         String[] tokens = inputCommand.split("\\s+");
         String keyword = tokens[0];
 
         if (keyword.equals("done")) {
             // Mark a task as done.
-            int taskIdx = Integer.parseInt(tokens[1]) - 1; // assume tokens has a length of 2
-            handleMarkTaskAsDone(taskIdx);
+            if (tokens.length != 2) {
+                throw new InvalidCommandException(
+                        "☹ OOPS!!! The done command should only have the task index as an argument.");
+            }
+
+            try {
+                int taskIdx = Integer.parseInt(tokens[1]) - 1;
+                handleMarkTaskAsDone(taskIdx);
+            } catch (NumberFormatException e) {
+                throw new InvalidCommandException(
+                        "☹ OOPS!!! The done command should only have the task index as an argument.");
+            }
         } else if (keyword.equals("todo") || keyword.equals("deadline") || keyword.equals("event")) {
             // Add a task to the list.
             Task task = parseTaskFromCommand(keyword, tokens);
@@ -71,13 +85,12 @@ public class Duke {
             // Print the list of tasks.
             handlePrintTaskList();
         } else {
-            // Temporary error handling.
-            System.out.println("\t No such command");
+            // Invalid commands
+            throw new InvalidCommandException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 
-    private static Task parseTaskFromCommand(String keyword, String[] tokens) {
-        // Assumes command given is valid.
+    private static Task parseTaskFromCommand(String keyword, String[] tokens) throws InvalidCommandException {
         StringBuilder descriptionBuilder = new StringBuilder();
         StringBuilder timeBuilder = new StringBuilder();
         boolean isDescDone = false;
@@ -108,16 +121,31 @@ public class Duke {
 
         switch (keyword) {
         case "deadline":
+            if (description.isBlank()) {
+                throw new InvalidCommandException("☹ OOPS!!! The description of a deadline cannot be empty.");
+            } else if (time.isBlank()) {
+                throw new InvalidCommandException(
+                        "☹ OOPS!!! The time of a deadline cannot be empty. Add the time by adding \"/by [time]\"");
+            }
             return new Deadline(description, time);
         case "event":
+            if (description.isBlank()) {
+                throw new InvalidCommandException("☹ OOPS!!! The description of an event cannot be empty.");
+            } else if (time.isBlank()) {
+                throw new InvalidCommandException(
+                        "☹ OOPS!!! The time of an event cannot be empty. Add the time by adding \"/at [time]\"");
+            }
             return new Event(description, time);
         default:
+            if (description.isBlank()) {
+                throw new InvalidCommandException("☹ OOPS!!! The description of a todo cannot be empty.");
+            }
             return new Todo(description);
         }
     }
 
-    private static void handleMarkTaskAsDone(int taskIdx) {
-        Task task = taskList.getTask(taskIdx); // assume taskIdx is not out of bound
+    private static void handleMarkTaskAsDone(int taskIdx) throws TaskListIndexOutOfBoundsException {
+        Task task = taskList.getTask(taskIdx);
         task.markAsDone();
         System.out.printf(
                 "\t Nice! I've marked this task as done: \n"
@@ -131,11 +159,16 @@ public class Duke {
                 "\t Got it. I've added this task: \n"
                 + "\t   %s\n"
                 + "\t Now you have %d tasks in the list.\n",
-                task, taskList.getSize());
+                task, taskList.size());
     }
 
     private static void handlePrintTaskList() {
-        System.out.println("\t Here are the tasks in your list: ");
-        System.out.println(taskList);
+        if (taskList.size() == 0) {
+            System.out.println("\t There are currently no tasks in your list.");
+        } else {
+            System.out.println("\t Here are the tasks in your list: ");
+            System.out.println(taskList);
+        }
+
     }
 }
