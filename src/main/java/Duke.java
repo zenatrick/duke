@@ -20,7 +20,7 @@ public class Duke {
      */
     public static void main(String[] args) {
         greetUser();
-        runEchoCommand();
+        runProgram();
     }
 
     private static void greetUser() {
@@ -32,22 +32,31 @@ public class Duke {
                 + horLine);
     }
 
-    private static void runEchoCommand() {
+    private static void runProgram() {
         Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
+        TaskList taskList = new TaskList();
 
+        String input = scanner.nextLine();
         while (!input.equals("bye")) {
-            System.out.println(
-                    horLine + "\n"
-                    + "\t " + input + "\n"
-                    + horLine);
+            System.out.println(horLine);
+
+            if (input.equals("list")) {
+                System.out.println(taskList);
+            } else {
+                taskList.addTask(input);
+                System.out.println("\t added: " + input);
+            }
+
+            System.out.println(horLine);
+
             input = scanner.nextLine();
         }
 
         System.out.println(
                 horLine + "\n"
-                        + "\t Bye. Hope to see you again soon!\n"
-                        + horLine);
+                + "\t Bye. Hope to see you again soon!\n"
+                + horLine
+        );
 
         scanner.close();
     }
