@@ -81,6 +81,20 @@ public class Duke {
             // Add a task to the list.
             Task task = parseTaskFromCommand(keyword, tokens);
             handleAddTask(task);
+        } else if (keyword.equals("delete")) {
+            // Remove a task from the list.
+            if (tokens.length != 2) {
+                throw new InvalidCommandException(
+                        "☹ OOPS!!! The delete command should only have the task index as an argument.");
+            }
+
+            try {
+                int taskIdx = Integer.parseInt(tokens[1]) - 1;
+                handleRemoveTask(taskIdx);
+            } catch (NumberFormatException e) {
+                throw new InvalidCommandException(
+                        "☹ OOPS!!! The delete command should only have the task index as an argument.");
+            }
         } else if (inputCommand.equals("list")) {
             // Print the list of tasks.
             handlePrintTaskList();
@@ -157,6 +171,14 @@ public class Duke {
         taskList.addTask(task);
         System.out.printf(
                 "\t Got it. I've added this task: \n"
+                + "\t   %s\n"
+                + "\t Now you have %d tasks in the list.\n",
+                task, taskList.size());
+    }
+
+    private static void handleRemoveTask(int taskIdx) throws TaskListIndexOutOfBoundsException {
+        Task task = taskList.removeTask(taskIdx);
+        System.out.printf("\t Noted. I've removed this task: \n"
                 + "\t   %s\n"
                 + "\t Now you have %d tasks in the list.\n",
                 task, taskList.size());

@@ -31,12 +31,29 @@ public class TaskList {
      *
      * @param taskIdx The index of the task to be returned.
      * @return The task at the specified index of this list.
-     * @throws TaskListIndexOutOfBoundsException If the taskIdx argument is negative or not less than the size of the
-     *                                           list.
+     * @throws TaskListIndexOutOfBoundsException If the taskIdx argument is out of range (taskIdx < 0 ||
+     *                                           taskIdx >= size()).
      */
     public Task getTask(int taskIdx) throws TaskListIndexOutOfBoundsException {
         try {
             return tasks.get(taskIdx);
+        } catch (IndexOutOfBoundsException e) {
+            throw new TaskListIndexOutOfBoundsException(
+                    String.format("☹ OOPS!!! The task of index %d cannot be found in your list.", taskIdx + 1));
+        }
+    }
+
+    /**
+     * Removes the task at the specified index of this list.
+     *
+     * @param taskIdx The index of the task to be removed.
+     * @return The task previously at the specified index of this list.
+     * @throws TaskListIndexOutOfBoundsException If the taskIdx argument is out of range (taskIdx < 0 ||
+     *                                           taskIdx >= size()).
+     */
+    public Task removeTask(int taskIdx) throws TaskListIndexOutOfBoundsException {
+        try {
+            return tasks.remove(taskIdx);
         } catch (IndexOutOfBoundsException e) {
             throw new TaskListIndexOutOfBoundsException(
                     String.format("☹ OOPS!!! The task of index %d cannot be found in your list.", taskIdx + 1));
