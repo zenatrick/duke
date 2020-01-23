@@ -16,6 +16,10 @@ public class TaskList {
         return tasks.get(taskIdx);
     }
 
+    public int getSize() {
+        return tasks.size();
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
