@@ -24,39 +24,40 @@ public class Duke {
     }
 
     private static void greetUser() {
-        System.out.println(
-                horLine + "\n"
-                + logo + "\n"
-                + "\t Hello! I'm Duke.\n"
-                + "\t What can I do for you?\n"
-                + horLine);
+        System.out.format(
+                "%s\n%s\n\t Hello! I'm Duke.\n\t What can I do for you?\n%s\n\n",
+                horLine, logo, horLine
+        );
     }
 
     private static void runProgram() {
         Scanner scanner = new Scanner(System.in);
         TaskList taskList = new TaskList();
 
-        String input = scanner.nextLine();
+        String input = scanner.nextLine().trim();
         while (!input.equals("bye")) {
             System.out.println(horLine);
 
-            if (input.equals("list")) {
+            String[] tokens = input.split("\\s+");
+            if (tokens[0].equals("done")) {
+                int taskIdx = Integer.parseInt(tokens[1]) - 1; // assume tokens has a length of 2
+                Task task = taskList.getTask(taskIdx); // assume taskIdx is not out of bound
+                task.markAsDone();
+                System.out.format("\t Nice! I've marked this task as done:\n\t   %s\n", task);
+            } else if (input.equals("list")) {
+                System.out.println("\t Here are the tasks in your list: ");
                 System.out.println(taskList);
             } else {
-                taskList.addTask(input);
-                System.out.println("\t added: " + input);
+                taskList.addTask(new Task(input));
+                System.out.format("\t added: %s\n", input);
             }
 
-            System.out.println(horLine);
+            System.out.format("%s\n\n", horLine);
 
-            input = scanner.nextLine();
+            input = scanner.nextLine().trim();
         }
 
-        System.out.println(
-                horLine + "\n"
-                + "\t Bye. Hope to see you again soon!\n"
-                + horLine
-        );
+        System.out.format("%s\n\t Bye. Hope to see you again soon!\n%s\n", horLine, horLine);
 
         scanner.close();
     }
