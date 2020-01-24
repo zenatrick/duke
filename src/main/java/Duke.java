@@ -7,14 +7,24 @@ import java.util.Scanner;
  * A Personal Assistant Chatbot that helps the user to keep track of various things.
  */
 public class Duke {
-    /** Horizontal line. */
+    /**
+     * Horizontal line.
+     */
     private static final String HOR_LINE = "\t____________________________________________________________";
 
-    /** List of recorded tasks for the program. */
+    private static final String INDEX_ERROR_MSG = "☹ OOPS!!! This command should only have a valid task index as the "
+            + "argument.";
+    private static final String DESCRIPTION_ERROR_MSG = "☹ OOPS!!! You forgot to include a description.";
+    private static final String TIME_ERROR_MSG = "☹ OOPS!!! You forgot to include a date/time.";
+
+    /**
+     * List of recorded tasks for the program.
+     */
     private List<Task> taskList;
 
     /**
      * Entry point to run the program.
+     *
      * @param args Command line arguments.
      */
     public static void main(String[] args) {
@@ -46,7 +56,7 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         String inputCommand = scanner.nextLine().strip();
         while (!inputCommand.equals("bye")) {
-            try{
+            try {
                 handleInputCommand(inputCommand);
             } catch (DukeException e) {
                 print(e.getMessages());
@@ -62,8 +72,6 @@ public class Duke {
     private void handleInputCommand(String inputCommand) throws DukeException {
         String[] tokens = inputCommand.split("\\s+");
 
-        final String INDEX_ERROR_MSG = "☹ OOPS!!! This command should only have a valid task index as the argument.";
-
         if (inputCommand.startsWith("done")) {
             // Mark a task as done.
             if (tokens.length != 2) {
@@ -77,7 +85,9 @@ public class Duke {
                 // Command is invalid if the argument is not a valid integer.
                 throw new InvalidArgumentException("done", INDEX_ERROR_MSG);
             }
-        } else if (inputCommand.startsWith("todo") || inputCommand.startsWith("deadline") || inputCommand.startsWith("event")) {
+        } else if (inputCommand.startsWith("todo")
+                || inputCommand.startsWith("deadline")
+                || inputCommand.startsWith("event")) {
             // Add a task to the list.
             Task task = parseTaskFromTokens(tokens);
             addTask(task);
@@ -133,8 +143,7 @@ public class Duke {
         String description = descriptionBuilder.toString().stripTrailing();
         String time = timeBuilder.toString().stripTrailing();
 
-        final String DESCRIPTION_ERROR_MSG = "☹ OOPS!!! You forgot to include a description.";
-        final String TIME_ERROR_MSG = "☹ OOPS!!! You forgot to include a date/time.";
+
         switch (keyword) {
         case "todo":
             if (description.isBlank()) {
