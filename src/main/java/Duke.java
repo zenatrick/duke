@@ -1,110 +1,110 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 /**
  * A Personal Assistant Chatbot that helps the user to keep track of various things.
  */
 public class Duke {
-    /** Duke logo. */
-    private static final String logo = "\t  ____        _        \n"
-            + "\t |  _ \\ _   _| | _____ \n"
-            + "\t | | | | | | | |/ / _ \\\n"
-            + "\t | |_| | |_| |   <  __/\n"
-            + "\t |____/ \\__,_|_|\\_\\___|\n";
-
     /** Horizontal line. */
-    private static final String horLine = "\t____________________________________________________________";
+    private static final String HOR_LINE = "\t____________________________________________________________";
 
     /** List of recorded tasks for the program. */
-    private static  TaskList taskList = new TaskList();
+    private List<Task> taskList;
 
     /**
-     * Runs Duke.
+     * Entry point to run the program.
      * @param args Command line arguments.
      */
     public static void main(String[] args) {
-        greetUser();
-        runProgram();
+        Duke duke = new Duke();
+        duke.run();
     }
 
-    private static void greetUser() {
-        System.out.printf(
-                "%s\n"
-                + "%s\n"
-                + "\t Hello! I'm Duke.\n"
-                + "\t What can I do for you?\n"
-                + "%s\n\n",
-                horLine, logo, horLine);
+    public Duke() {
+        taskList = new ArrayList<>();
     }
 
-    private static void runProgram() {
+    /**
+     * Runs Duke.
+     */
+    public void run() {
+        // Greet user.
+        print(
+                " ____        _        ",
+                "|  _ \\ _   _| | _____ ",
+                "| | | | | | | |/ / _ \\",
+                "| |_| | |_| |   <  __/",
+                "|____/ \\__,_|_|\\_\\___|",
+                "",
+                "Hello! I'm Duke.",
+                "What can I do for you?"
+        );
+
+        // Start main program.
         Scanner scanner = new Scanner(System.in);
-
-        String inputCommand = scanner.nextLine().trim();
+        String inputCommand = scanner.nextLine().strip();
         while (!inputCommand.equals("bye")) {
-            System.out.println(horLine);
-            try {
+            try{
                 handleInputCommand(inputCommand);
             } catch (DukeException e) {
-                System.out.printf("\t %s\n", e.getMessage());
+                print(e.getMessages());
             }
-            System.out.printf("%s\n\n", horLine);
-            inputCommand = scanner.nextLine().trim();
+            inputCommand = scanner.nextLine().strip();
         }
-
-        System.out.printf(
-                "%s\n"
-                + "\t Bye. Hope to see you again soon!\n"
-                + "%s\n",
-                horLine, horLine);
         scanner.close();
+
+        // Exit message.
+        print("Bye. Hope to see you again soon!");
     }
 
-    private static void handleInputCommand(String inputCommand) throws DukeException {
+    private void handleInputCommand(String inputCommand) throws DukeException {
         String[] tokens = inputCommand.split("\\s+");
-        String keyword = tokens[0];
 
-        if (keyword.equals("done")) {
+        final String INDEX_ERROR_MSG = "☹ OOPS!!! This command should only have a valid task index as the argument.";
+
+        if (inputCommand.startsWith("done")) {
             // Mark a task as done.
             if (tokens.length != 2) {
-                throw new InvalidCommandException(
-                        "☹ OOPS!!! The done command should only have the task index as an argument.");
+                // Command is invalid if the number of arguments not exactly 1.
+                throw new InvalidArgumentException("done", INDEX_ERROR_MSG);
             }
-
             try {
-                int taskIdx = Integer.parseInt(tokens[1]) - 1;
-                handleMarkTaskAsDone(taskIdx);
+                int taskIdx = Integer.parseInt(tokens[1]) - 1; // May throw NumberFormatException
+                markTaskAsDone(taskIdx);
             } catch (NumberFormatException e) {
-                throw new InvalidCommandException(
-                        "☹ OOPS!!! The done command should only have the task index as an argument.");
+                // Command is invalid if the argument is not a valid integer.
+                throw new InvalidArgumentException("done", INDEX_ERROR_MSG);
             }
-        } else if (keyword.equals("todo") || keyword.equals("deadline") || keyword.equals("event")) {
+        } else if (inputCommand.startsWith("todo") || inputCommand.startsWith("deadline") || inputCommand.startsWith("event")) {
             // Add a task to the list.
-            Task task = parseTaskFromCommand(keyword, tokens);
-            handleAddTask(task);
-        } else if (keyword.equals("delete")) {
+            Task task = parseTaskFromTokens(tokens);
+            addTask(task);
+        } else if (inputCommand.startsWith("delete")) {
             // Remove a task from the list.
             if (tokens.length != 2) {
-                throw new InvalidCommandException(
-                        "☹ OOPS!!! The delete command should only have the task index as an argument.");
+                // Command is invalid if the number of arguments not exactly 1.
+                throw new InvalidArgumentException("delete", INDEX_ERROR_MSG);
             }
-
             try {
-                int taskIdx = Integer.parseInt(tokens[1]) - 1;
-                handleRemoveTask(taskIdx);
+                int taskIdx = Integer.parseInt(tokens[1]) - 1; // May throw NumberFormatException
+                removeTask(taskIdx);
             } catch (NumberFormatException e) {
-                throw new InvalidCommandException(
-                        "☹ OOPS!!! The delete command should only have the task index as an argument.");
+                // Command is invalid if the argument is not a valid integer.
+                throw new InvalidArgumentException("delete", INDEX_ERROR_MSG);
             }
         } else if (inputCommand.equals("list")) {
             // Print the list of tasks.
-            handlePrintTaskList();
+            printTaskList();
         } else {
             // Invalid commands
-            throw new InvalidCommandException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new InvalidCommandException("☹ OOPS!!! I'm sorry, but I don't know what that means.");
         }
     }
 
-    private static Task parseTaskFromCommand(String keyword, String[] tokens) throws InvalidCommandException {
+    private Task parseTaskFromTokens(String[] tokens) throws IncompleteCommandException {
+        String keyword = tokens[0];
         StringBuilder descriptionBuilder = new StringBuilder();
         StringBuilder timeBuilder = new StringBuilder();
         boolean isDescDone = false;
@@ -133,64 +133,91 @@ public class Duke {
         String description = descriptionBuilder.toString().stripTrailing();
         String time = timeBuilder.toString().stripTrailing();
 
+        final String DESCRIPTION_ERROR_MSG = "☹ OOPS!!! You forgot to include a description.";
+        final String TIME_ERROR_MSG = "☹ OOPS!!! You forgot to include a date/time.";
         switch (keyword) {
+        case "todo":
+            if (description.isBlank()) {
+                throw new IncompleteCommandException(keyword, DESCRIPTION_ERROR_MSG);
+            }
+            return new Todo(description);
         case "deadline":
             if (description.isBlank()) {
-                throw new InvalidCommandException("☹ OOPS!!! The description of a deadline cannot be empty.");
+                throw new IncompleteCommandException(keyword, DESCRIPTION_ERROR_MSG);
             } else if (time.isBlank()) {
-                throw new InvalidCommandException(
-                        "☹ OOPS!!! The time of a deadline cannot be empty. Add the time by adding \"/by [time]\"");
+                throw new IncompleteCommandException(keyword, TIME_ERROR_MSG);
             }
             return new Deadline(description, time);
         case "event":
             if (description.isBlank()) {
-                throw new InvalidCommandException("☹ OOPS!!! The description of an event cannot be empty.");
+                throw new IncompleteCommandException(keyword, DESCRIPTION_ERROR_MSG);
             } else if (time.isBlank()) {
-                throw new InvalidCommandException(
-                        "☹ OOPS!!! The time of an event cannot be empty. Add the time by adding \"/at [time]\"");
+                throw new IncompleteCommandException(keyword, TIME_ERROR_MSG);
             }
             return new Event(description, time);
-        default:
-            if (description.isBlank()) {
-                throw new InvalidCommandException("☹ OOPS!!! The description of a todo cannot be empty.");
-            }
-            return new Todo(description);
+        default: // Never reached
+            throw new UnknownError("An unexpected error occurred.");
         }
     }
 
-    private static void handleMarkTaskAsDone(int taskIdx) throws TaskListIndexOutOfBoundsException {
-        Task task = taskList.getTask(taskIdx);
-        task.markAsDone();
-        System.out.printf(
-                "\t Nice! I've marked this task as done: \n"
-                + "\t   %s\n",
-                task);
+    private void markTaskAsDone(int taskIdx) throws InvalidArgumentException {
+        try {
+            Task task = taskList.get(taskIdx);
+            task.markAsDone();
+            print(
+                    "Nice! I've marked this task as done: ",
+                    String.format("  %s", task)
+            );
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidArgumentException(
+                    "done",
+                    String.format("☹ OOPS!!! The task of index %d cannot be found in your list.", taskIdx + 1));
+        }
     }
 
-    private static void handleAddTask(Task task) {
-        taskList.addTask(task);
-        System.out.printf(
-                "\t Got it. I've added this task: \n"
-                + "\t   %s\n"
-                + "\t Now you have %d tasks in the list.\n",
-                task, taskList.size());
+    private void addTask(Task task) {
+        taskList.add(task);
+        print(
+                "Got it. I've added this task: ",
+                String.format("  %s", task),
+                String.format("Now you have %d tasks in the list.", taskList.size())
+        );
     }
 
-    private static void handleRemoveTask(int taskIdx) throws TaskListIndexOutOfBoundsException {
-        Task task = taskList.removeTask(taskIdx);
-        System.out.printf("\t Noted. I've removed this task: \n"
-                + "\t   %s\n"
-                + "\t Now you have %d tasks in the list.\n",
-                task, taskList.size());
+    private void removeTask(int taskIdx) throws InvalidArgumentException {
+        try {
+            Task task = taskList.remove(taskIdx);
+            print(
+                    "Noted. I've removed this task: ",
+                    String.format("  %s", task),
+                    String.format("Now you have %d tasks in the list.", taskList.size())
+            );
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidArgumentException(
+                    "delete",
+                    String.format("☹ OOPS!!! The task of index %d cannot be found in your list.", taskIdx + 1));
+        }
     }
 
-    private static void handlePrintTaskList() {
-        if (taskList.size() == 0) {
-            System.out.println("\t There are currently no tasks in your list.");
+    private void printTaskList() {
+        int listSize = taskList.size();
+        if (listSize == 0) {
+            print("There are currently no tasks in your list.");
         } else {
-            System.out.println("\t Here are the tasks in your list: ");
-            System.out.println(taskList);
+            String[] strings = new String[listSize + 1];
+            strings[0] = "Here are the tasks in your list: ";
+            for (int i = 0; i < listSize; i++) {
+                strings[i + 1] = String.format("%d.%s", i + 1, taskList.get(i));
+            }
+            print(strings);
         }
 
+    }
+
+    private void print(String... strings) {
+        System.out.println(HOR_LINE);
+        Arrays.stream(strings).map(string -> String.format("\t %s", string)).forEach(System.out::println);
+        System.out.println(HOR_LINE);
+        System.out.println();
     }
 }

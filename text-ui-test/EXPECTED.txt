@@ -4,7 +4,7 @@
 	 | | | | | | | |/ / _ \
 	 | |_| | |_| |   <  __/
 	 |____/ \__,_|_|\_\___|
-
+	 
 	 Hello! I'm Duke.
 	 What can I do for you?
 	____________________________________________________________
@@ -96,91 +96,129 @@
 	____________________________________________________________
 
 	____________________________________________________________
-	 â˜¹ OOPS!!! I'm sorry, but I don't know what that means :-(
+	 â˜¹ OOPS!!! I'm sorry, but I don't know what that means.
 	____________________________________________________________
 
 	____________________________________________________________
-	 â˜¹ OOPS!!! I'm sorry, but I don't know what that means :-(
+	 â˜¹ OOPS!!! I'm sorry, but I don't know what that means.
 	____________________________________________________________
 
 	____________________________________________________________
-	 â˜¹ OOPS!!! I'm sorry, but I don't know what that means :-(
+	 â˜¹ OOPS!!! I'm sorry, but I don't know what that means.
 	____________________________________________________________
 
 	____________________________________________________________
-	 â˜¹ OOPS!!! The description of a todo cannot be empty.
+	 â˜¹ OOPS!!! You forgot to include a description.
+	 To add a todo, tell me in this format: 
+	   todo [description]
 	____________________________________________________________
 
 	____________________________________________________________
-	 â˜¹ OOPS!!! The description of a deadline cannot be empty.
+	 â˜¹ OOPS!!! You forgot to include a description.
+	 To add a deadline, tell me in this format: 
+	   todo [description] /by [date/time]
 	____________________________________________________________
 
 	____________________________________________________________
-	 â˜¹ OOPS!!! The description of a deadline cannot be empty.
+	 â˜¹ OOPS!!! You forgot to include a description.
+	 To add a deadline, tell me in this format: 
+	   todo [description] /by [date/time]
 	____________________________________________________________
 
 	____________________________________________________________
-	 â˜¹ OOPS!!! The time of a deadline cannot be empty. Add the time by adding "/by [time]"
+	 â˜¹ OOPS!!! You forgot to include a date/time.
+	 To add a deadline, tell me in this format: 
+	   todo [description] /by [date/time]
 	____________________________________________________________
 
 	____________________________________________________________
-	 â˜¹ OOPS!!! The time of a deadline cannot be empty. Add the time by adding "/by [time]"
+	 â˜¹ OOPS!!! You forgot to include a date/time.
+	 To add a deadline, tell me in this format: 
+	   todo [description] /by [date/time]
 	____________________________________________________________
 
 	____________________________________________________________
-	 â˜¹ OOPS!!! The description of an event cannot be empty.
+	 â˜¹ OOPS!!! You forgot to include a description.
+	 To add an event, tell me in this format: 
+	   todo [description] /at [date/time]
 	____________________________________________________________
 
 	____________________________________________________________
-	 â˜¹ OOPS!!! The description of an event cannot be empty.
+	 â˜¹ OOPS!!! You forgot to include a description.
+	 To add an event, tell me in this format: 
+	   todo [description] /at [date/time]
 	____________________________________________________________
 
 	____________________________________________________________
-	 â˜¹ OOPS!!! The time of an event cannot be empty. Add the time by adding "/at [time]"
+	 â˜¹ OOPS!!! You forgot to include a date/time.
+	 To add an event, tell me in this format: 
+	   todo [description] /at [date/time]
 	____________________________________________________________
 
 	____________________________________________________________
-	 â˜¹ OOPS!!! The time of an event cannot be empty. Add the time by adding "/at [time]"
+	 â˜¹ OOPS!!! You forgot to include a date/time.
+	 To add an event, tell me in this format: 
+	   todo [description] /at [date/time]
 	____________________________________________________________
 
 	____________________________________________________________
 	 â˜¹ OOPS!!! The task of index -1 cannot be found in your list.
+	 To mark a task as done, tell me in this format: 
+	   done [task_index]
 	____________________________________________________________
 
 	____________________________________________________________
 	 â˜¹ OOPS!!! The task of index 1000 cannot be found in your list.
+	 To mark a task as done, tell me in this format: 
+	   done [task_index]
 	____________________________________________________________
 
 	____________________________________________________________
-	 â˜¹ OOPS!!! The done command should only have the task index as an argument.
+	 â˜¹ OOPS!!! This command should only have a valid task index as the argument.
+	 To mark a task as done, tell me in this format: 
+	   done [task_index]
 	____________________________________________________________
 
 	____________________________________________________________
-	 â˜¹ OOPS!!! The done command should only have the task index as an argument.
+	 â˜¹ OOPS!!! This command should only have a valid task index as the argument.
+	 To mark a task as done, tell me in this format: 
+	   done [task_index]
 	____________________________________________________________
 
 	____________________________________________________________
-	 â˜¹ OOPS!!! The done command should only have the task index as an argument.
+	 â˜¹ OOPS!!! This command should only have a valid task index as the argument.
+	 To mark a task as done, tell me in this format: 
+	   done [task_index]
 	____________________________________________________________
 
 	____________________________________________________________
 	 â˜¹ OOPS!!! The task of index -1 cannot be found in your list.
+	 To delete a task, tell me in this format: 
+	   delete [task_index]
 	____________________________________________________________
 
 	____________________________________________________________
 	 â˜¹ OOPS!!! The task of index 1000 cannot be found in your list.
+	 To delete a task, tell me in this format: 
+	   delete [task_index]
 	____________________________________________________________
 
 	____________________________________________________________
-	 â˜¹ OOPS!!! The delete command should only have the task index as an argument.
+	 â˜¹ OOPS!!! This command should only have a valid task index as the argument.
+	 To delete a task, tell me in this format: 
+	   delete [task_index]
 	____________________________________________________________
 
 	____________________________________________________________
-	 â˜¹ OOPS!!! The delete command should only have the task index as an argument.
+	 â˜¹ OOPS!!! This command should only have a valid task index as the argument.
+	 To delete a task, tell me in this format: 
+	   delete [task_index]
 	____________________________________________________________
 
 	____________________________________________________________
-	 â˜¹ OOPS!!! The delete command should only have the task index as an argument.
+	 â˜¹ OOPS!!! This command should only have a valid task index as the argument.
+	 To delete a task, tell me in this format: 
+	   delete [task_index]
 	____________________________________________________________
 
 	____________________________________________________________
@@ -193,3 +231,4 @@
 	____________________________________________________________
 	 Bye. Hope to see you again soon!
 	____________________________________________________________
+
