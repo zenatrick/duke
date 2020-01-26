@@ -20,14 +20,16 @@ public class IncompleteCommandException extends DukeException {
             messages = new String[]{
                 message,
                 "To add a deadline, tell me in this format: ",
-                "  todo [description] /by [date/time]"
+                "  todo [description] /by [time]",
+                "  Time should be in the format of 'dd/MM/yyyy HH:mm'"
             };
             break;
         case "event":
             messages = new String[]{
                 message,
                 "To add an event, tell me in this format: ",
-                "  todo [description] /at [date/time]"
+                "  todo [description] /at [time]",
+                "  Time should be in the format of 'dd/MM/yyyy HH:mm'"
             };
             break;
         default: // Never reached

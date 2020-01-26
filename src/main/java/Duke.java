@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,6 +20,7 @@ public class Duke {
     private static final String DESCRIPTION_ERROR_MSG = "☹ OOPS!!! You forgot to include a description.";
     private static final String TIME_ERROR_MSG = "☹ OOPS!!! You forgot to include a date/time.";
 
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy H:m");
     /**
      * List of recorded tasks for the program.
      */
@@ -113,7 +117,7 @@ public class Duke {
         }
     }
 
-    private Task parseTaskFromTokens(String[] tokens) throws IncompleteCommandException {
+    private Task parseTaskFromTokens(String[] tokens) throws IncompleteCommandException, DateTimeFormatException {
         String keyword = tokens[0];
         StringBuilder descriptionBuilder = new StringBuilder();
         StringBuilder timeBuilder = new StringBuilder();
@@ -141,8 +145,7 @@ public class Duke {
         }
 
         String description = descriptionBuilder.toString().stripTrailing();
-        String time = timeBuilder.toString().stripTrailing();
-
+        String timeString = timeBuilder.toString().stripTrailing();
 
         switch (keyword) {
         case "todo":
@@ -153,17 +156,29 @@ public class Duke {
         case "deadline":
             if (description.isBlank()) {
                 throw new IncompleteCommandException(keyword, DESCRIPTION_ERROR_MSG);
-            } else if (time.isBlank()) {
+            } else if (timeString.isBlank()) {
                 throw new IncompleteCommandException(keyword, TIME_ERROR_MSG);
             }
-            return new Deadline(description, time);
+
+            try {
+                LocalDateTime time = LocalDateTime.parse(timeString, DATE_TIME_FORMATTER);
+                return new Deadline(description, time);
+            } catch (DateTimeParseException e) {
+                throw new DateTimeFormatException();
+            }
         case "event":
             if (description.isBlank()) {
                 throw new IncompleteCommandException(keyword, DESCRIPTION_ERROR_MSG);
-            } else if (time.isBlank()) {
+            } else if (timeString.isBlank()) {
                 throw new IncompleteCommandException(keyword, TIME_ERROR_MSG);
             }
-            return new Event(description, time);
+
+            try {
+                LocalDateTime time = LocalDateTime.parse(timeString, DATE_TIME_FORMATTER);
+                return new Event(description, time);
+            } catch (DateTimeParseException e) {
+                throw new DateTimeFormatException();
+            }
         default: // Never reached
             throw new UnknownError("An unexpected error occurred.");
         }
