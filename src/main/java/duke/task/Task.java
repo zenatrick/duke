@@ -1,8 +1,6 @@
-import java.time.format.DateTimeFormatter;
+package duke.task;
 
 public abstract class Task {
-    protected static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mma");
-
     protected String description;
     protected boolean isDone;
 
@@ -12,7 +10,7 @@ public abstract class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
+        return isDone ? "\u2713" : "\u2718"; // "return ✓ or ✘ symbols;
     }
 
     public void markAsDone() {
