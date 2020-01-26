@@ -15,6 +15,8 @@ public abstract class Task {
         isDone = true;
     }
 
+    public abstract String serialize();
+
     @Override
     public String toString() {
         return String.format("[%s] %s", getStatusIcon(), description);

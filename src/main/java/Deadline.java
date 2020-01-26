@@ -7,6 +7,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String serialize() {
+        return String.format("D,%d,%s,%s", isDone ? 1 : 0, description, by);
+    }
+
+    @Override
     public String toString() {
         return String.format("[D]%s (by: %s)", super.toString(), by);
     }

@@ -7,6 +7,8 @@ import java.util.Scanner;
  * A Personal Assistant Chatbot that helps the user to keep track of various things.
  */
 public class Duke {
+    private static final String SAVE_FILE_PATH = "data/duke.txt";
+
     /**
      * Horizontal line.
      */
@@ -22,18 +24,22 @@ public class Duke {
      */
     private List<Task> taskList;
 
+    private Storage storage;
+
     /**
      * Entry point to run the program.
      *
      * @param args Command line arguments.
      */
     public static void main(String[] args) {
-        Duke duke = new Duke();
-        duke.run();
+        new Duke().run();
     }
 
+    /**
+     * Constructs a new Duke instance.
+     */
     public Duke() {
-        taskList = new ArrayList<>();
+        storage = new Storage(SAVE_FILE_PATH);
     }
 
     /**
@@ -52,6 +58,14 @@ public class Duke {
                 "What can I do for you?"
         );
 
+        // Load tasks from save file.
+        try {
+            taskList = storage.loadTasks();
+        } catch (LoadSavedTasksException e) {
+            print(e.getMessages());
+            taskList = new ArrayList<>();
+        }
+
         // Start main program.
         Scanner scanner = new Scanner(System.in);
         String inputCommand = scanner.nextLine().strip();
@@ -61,6 +75,11 @@ public class Duke {
             } catch (DukeException e) {
                 print(e.getMessages());
             }
+
+            // Save tasks to save file.
+            storage.saveTasks(taskList);
+
+            // Get new input command from user.
             inputCommand = scanner.nextLine().strip();
         }
         scanner.close();

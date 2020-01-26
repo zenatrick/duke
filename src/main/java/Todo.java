@@ -4,6 +4,11 @@ public class Todo extends Task {
     }
 
     @Override
+    public String serialize() {
+        return String.format("T,%d,%s", isDone ? 1 : 0, description);
+    }
+
+    @Override
     public String toString() {
         return String.format("[T]%s", super.toString());
     }
