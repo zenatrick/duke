@@ -1,7 +1,7 @@
 list
 todo read book
-deadline return book /by June 6th
-event project meeting /at Aug 6th 2-4pm
+deadline return book /by 6/6/2020 17:00
+event project meeting /at 6/8/2020 14:00
 todo exercise
 list
 done 1
@@ -17,13 +17,14 @@ list all
 bye bye
 todo
 deadline
-deadline /by Aug 3rd 9:30pm
+deadline /by 3/8/2020 21:30
 deadline project
-deadline project /at
+deadline project /at 3/8/2020 21:30
 event
-event /at May 23rd 5-7pm
+event /at 23/5/2020 17:00
 event interview
-event interview /by May 23rd 5-7pm
+event interview /by 23 Aug 2020 5pm
+event interview /at 23 Aug 2020 5pm
 done -1
 done 1000
 done 0.1

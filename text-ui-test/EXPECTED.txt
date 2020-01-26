@@ -21,13 +21,13 @@
 
 	____________________________________________________________
 	 Got it. I've added this task: 
-	   [D][✘] return book (by: June 6th)
+	   [D][✘] return book (by: 06 Jun 2020, 05:00PM)
 	 Now you have 2 tasks in the list.
 	____________________________________________________________
 
 	____________________________________________________________
 	 Got it. I've added this task: 
-	   [E][✘] project meeting (at: Aug 6th 2-4pm)
+	   [E][✘] project meeting (at: 06 Aug 2020, 02:00PM)
 	 Now you have 3 tasks in the list.
 	____________________________________________________________
 
@@ -40,8 +40,8 @@
 	____________________________________________________________
 	 Here are the tasks in your list: 
 	 1.[T][✘] read book
-	 2.[D][✘] return book (by: June 6th)
-	 3.[E][✘] project meeting (at: Aug 6th 2-4pm)
+	 2.[D][✘] return book (by: 06 Jun 2020, 05:00PM)
+	 3.[E][✘] project meeting (at: 06 Aug 2020, 02:00PM)
 	 4.[T][✘] exercise
 	____________________________________________________________
 
@@ -53,8 +53,8 @@
 	____________________________________________________________
 	 Here are the tasks in your list: 
 	 1.[T][✓] read book
-	 2.[D][✘] return book (by: June 6th)
-	 3.[E][✘] project meeting (at: Aug 6th 2-4pm)
+	 2.[D][✘] return book (by: 06 Jun 2020, 05:00PM)
+	 3.[E][✘] project meeting (at: 06 Aug 2020, 02:00PM)
 	 4.[T][✘] exercise
 	____________________________________________________________
 
@@ -67,8 +67,8 @@
 	____________________________________________________________
 	 Here are the tasks in your list: 
 	 1.[T][✓] read book
-	 2.[D][✘] return book (by: June 6th)
-	 3.[E][✘] project meeting (at: Aug 6th 2-4pm)
+	 2.[D][✘] return book (by: 06 Jun 2020, 05:00PM)
+	 3.[E][✘] project meeting (at: 06 Aug 2020, 02:00PM)
 	____________________________________________________________
 
 	____________________________________________________________
@@ -79,19 +79,19 @@
 
 	____________________________________________________________
 	 Nice! I've marked this task as done: 
-	   [D][✓] return book (by: June 6th)
+	   [D][✓] return book (by: 06 Jun 2020, 05:00PM)
 	____________________________________________________________
 
 	____________________________________________________________
 	 Noted. I've removed this task: 
-	   [E][✘] project meeting (at: Aug 6th 2-4pm)
+	   [E][✘] project meeting (at: 06 Aug 2020, 02:00PM)
 	 Now you have 3 tasks in the list.
 	____________________________________________________________
 
 	____________________________________________________________
 	 Here are the tasks in your list: 
 	 1.[T][✓] read book
-	 2.[D][✓] return book (by: June 6th)
+	 2.[D][✓] return book (by: 06 Jun 2020, 05:00PM)
 	 3.[T][✘] join sports club
 	____________________________________________________________
 
@@ -116,49 +116,62 @@
 	____________________________________________________________
 	 â˜¹ OOPS!!! You forgot to include a description.
 	 To add a deadline, tell me in this format: 
-	   todo [description] /by [date/time]
+	   todo [description] /by [time]
+	   Time should be in the format of 'dd/MM/yyyy HH:mm'
 	____________________________________________________________
 
 	____________________________________________________________
 	 â˜¹ OOPS!!! You forgot to include a description.
 	 To add a deadline, tell me in this format: 
-	   todo [description] /by [date/time]
+	   todo [description] /by [time]
+	   Time should be in the format of 'dd/MM/yyyy HH:mm'
 	____________________________________________________________
 
 	____________________________________________________________
 	 â˜¹ OOPS!!! You forgot to include a date/time.
 	 To add a deadline, tell me in this format: 
-	   todo [description] /by [date/time]
+	   todo [description] /by [time]
+	   Time should be in the format of 'dd/MM/yyyy HH:mm'
 	____________________________________________________________
 
 	____________________________________________________________
 	 â˜¹ OOPS!!! You forgot to include a date/time.
 	 To add a deadline, tell me in this format: 
-	   todo [description] /by [date/time]
+	   todo [description] /by [time]
+	   Time should be in the format of 'dd/MM/yyyy HH:mm'
 	____________________________________________________________
 
 	____________________________________________________________
 	 â˜¹ OOPS!!! You forgot to include a description.
 	 To add an event, tell me in this format: 
-	   todo [description] /at [date/time]
+	   todo [description] /at [time]
+	   Time should be in the format of 'dd/MM/yyyy HH:mm'
 	____________________________________________________________
 
 	____________________________________________________________
 	 â˜¹ OOPS!!! You forgot to include a description.
 	 To add an event, tell me in this format: 
-	   todo [description] /at [date/time]
+	   todo [description] /at [time]
+	   Time should be in the format of 'dd/MM/yyyy HH:mm'
 	____________________________________________________________
 
 	____________________________________________________________
 	 â˜¹ OOPS!!! You forgot to include a date/time.
 	 To add an event, tell me in this format: 
-	   todo [description] /at [date/time]
+	   todo [description] /at [time]
+	   Time should be in the format of 'dd/MM/yyyy HH:mm'
 	____________________________________________________________
 
 	____________________________________________________________
 	 â˜¹ OOPS!!! You forgot to include a date/time.
 	 To add an event, tell me in this format: 
-	   todo [description] /at [date/time]
+	   todo [description] /at [time]
+	   Time should be in the format of 'dd/MM/yyyy HH:mm'
+	____________________________________________________________
+
+	____________________________________________________________
+	 â˜¹ OOPS!!! I don't understand the time entered.
+	   Time should be in the format of 'dd/MM/yyyy HH:mm'
 	____________________________________________________________
 
 	____________________________________________________________
@@ -224,7 +237,7 @@
 	____________________________________________________________
 	 Here are the tasks in your list: 
 	 1.[T][✓] read book
-	 2.[D][✓] return book (by: June 6th)
+	 2.[D][✓] return book (by: 06 Jun 2020, 05:00PM)
 	 3.[T][✘] join sports club
 	____________________________________________________________
 
