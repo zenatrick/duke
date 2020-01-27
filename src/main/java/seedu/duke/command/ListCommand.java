@@ -1,8 +1,9 @@
 package seedu.duke.command;
 
-import seedu.duke.common.Messages;
 import seedu.duke.exception.TaskIndexOutOfBoundException;
 import seedu.duke.task.TaskList;
+
+import static seedu.duke.common.Messages.EMPTY_TASK_LIST_MSG;
 
 public class ListCommand implements Command {
 
@@ -15,7 +16,7 @@ public class ListCommand implements Command {
     public CommandResponse execute(TaskList taskList) {
         int listSize = taskList.size();
         if (listSize == 0) {
-            return new CommandResponse(Messages.EMPTY_TASK_LIST_MSG);
+            return new CommandResponse(EMPTY_TASK_LIST_MSG);
         } else {
             String[] response = new String[listSize + 1];
             response[0] = "Here are the tasks in your list: ";

@@ -42,14 +42,24 @@ public class CommandParser {
                 throw new IncorrectCommandException(
                         Messages.generateDeleteErrorMessage(Messages.INVALID_INDEX_ERROR_MSG));
             }
+        } else if (commandWord.equals("find")) {
+            // Find command
+            if (tokens.length != 2) {
+                // Command is invalid if the number of arguments not exactly 1.
+                throw new IncorrectCommandException(
+                        Messages.generateFindErrorMessage());
+            }
+            return new FindCommand(tokens[1]);
         } else if (commandWord.equals("todo")
                 || commandWord.equals("deadline")
                 || commandWord.equals("event")) {
             // Add command
             return parseAddCommandFromTokens(tokens);
         } else if (userInputCommand.equals("list")) {
+            // List command
             return new ListCommand();
         } else if (userInputCommand.equals("bye")) {
+            // Exit command
             return new ExitCommand();
         } else {
             // Invalid commands
@@ -79,9 +89,9 @@ public class CommandParser {
             if (tokens[i].equals(delimiter)) {
                 isDescDone = true;
             } else if (isDescDone) {
-                timeBuilder.append(tokens[i]).append(" ");
+                timeBuilder.append(tokens[i]).append(' ');
             } else {
-                descriptionBuilder.append(tokens[i]).append(" ");
+                descriptionBuilder.append(tokens[i]).append(' ');
             }
         }
 

@@ -22,6 +22,9 @@ public class Messages {
         "  event [description] /at [time]",
         "Time should be in the format of 'dd/MM/yyyy HH:mm'"
     };
+    public static final String[] EMPTY_FIND_RESULT_MSG = new String[]{
+        "There are no matching tasks in your list."
+    };
 
     public static final String EMPTY_DESCRIPTION_ERROR_MSG = "You forgot to include a description.";
     public static final String EMPTY_TIME_ERROR_MSG = "You forgot to include a time.";
@@ -117,6 +120,15 @@ public class Messages {
             message,
             "To delete a task, tell me in this format: ",
             "  delete [task_index]"
+        };
+    }
+
+    public static String[] generateFindErrorMessage() {
+        return new String[]{
+            "Too many arguments for this command. ",
+            "To find a task, tell me in this format: ",
+            " find [keyword]",
+            "Only one keyword is allowed at a time."
         };
     }
 
