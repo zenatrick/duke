@@ -1,5 +1,8 @@
 package seedu.duke.exception;
 
+/**
+ * Signals that an error has occurred while performing a storage operation.
+ */
 public class StorageOperationException extends DukeException {
     /**
      * Constructs a new StorageOperationException with the specified array of messages.

@@ -3,7 +3,7 @@ package seedu.duke.command;
 import seedu.duke.common.Messages;
 import seedu.duke.task.TaskList;
 
-public class ExitCommand implements Command {
+class ExitCommand implements Command {
     @Override
     public boolean isExitCommand() {
         return true;

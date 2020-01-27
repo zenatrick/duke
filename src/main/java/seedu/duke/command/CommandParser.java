@@ -7,7 +7,17 @@ import seedu.duke.common.DateTimeFormat;
 import seedu.duke.common.Messages;
 import seedu.duke.exception.IncorrectCommandException;
 
+/**
+ * Handles the parsing of the user's input command.
+ */
 public class CommandParser {
+    /**
+     * Returns the corresponding Command to be executed after parsing the specified user input command.
+     *
+     * @param userInputCommand The specified user input command.
+     * @return The corresponding Command to be executed.
+     * @throws IncorrectCommandException If the user inputs an invalid or incomplete command.
+     */
     public static Command parse(String userInputCommand) throws IncorrectCommandException {
         String[] tokens = userInputCommand.split("\\s+");
         String commandWord = tokens[0];

@@ -13,7 +13,17 @@ import seedu.duke.task.Task;
 import seedu.duke.task.TaskList;
 import seedu.duke.task.Todo;
 
-public class TaskDecoder {
+/**
+ * Decodes the storage file data into a TaskList object.
+ */
+class TaskDecoder {
+    /**
+     * Decodes the specified list of strings from the storage file into a decoded TaskList.
+     *
+     * @param taskListInString The list of strings from the storage file to be decoded into a TaskList object.
+     * @return The decoded TaskList.
+     * @throws StorageOperationException If the list of strings received is in an invalid format.
+     */
     static TaskList decodeTasksList(List<String> taskListInString) throws StorageOperationException {
         List<Task> decodedTasksList = new ArrayList<>();
         for (String taskInString : taskListInString) {
@@ -21,7 +31,6 @@ public class TaskDecoder {
         }
         return new TaskList(decodedTasksList);
     }
-
 
     private static Task parseTaskFromString(String encodedTask) throws StorageOperationException {
         String[] tokens = encodedTask.split(",");

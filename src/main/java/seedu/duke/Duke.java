@@ -1,9 +1,9 @@
 package seedu.duke;
 
-import seedu.duke.common.Messages;
 import seedu.duke.command.Command;
 import seedu.duke.command.CommandParser;
 import seedu.duke.command.CommandResponse;
+import seedu.duke.common.Messages;
 import seedu.duke.exception.IncorrectCommandException;
 import seedu.duke.exception.InvalidStorageFilePathException;
 import seedu.duke.exception.StorageOperationException;
@@ -12,7 +12,8 @@ import seedu.duke.task.TaskList;
 import seedu.duke.ui.TextUi;
 
 /**
- * A Personal Assistant Chatbot that helps the user to keep track of various things.
+ * Entry point of the application Duke.
+ * Initializes the application and starts the interaction with the user.
  */
 public class Duke {
     private static final String STORAGE_FILE_PATH_TEMP = "data/duke.txt";
@@ -22,7 +23,7 @@ public class Duke {
     private TextUi ui;
 
     /**
-     * Entry point to run the program.
+     * Entry point to run the application.
      *
      * @param args Command line arguments.
      */
@@ -32,10 +33,13 @@ public class Duke {
 
     /**
      * Constructs a new Duke instance.
+     * Sets up the required objects, prints the welcome message and loads the data from the storage file.
      */
     public Duke() {
+        // Set up the text UI.
         ui = new TextUi();
 
+        // Print welcome message.
         ui.printNormalMessages(Messages.WELCOME_MSG);
 
         // Load task list from storage file.
@@ -49,18 +53,10 @@ public class Duke {
     }
 
     /**
-     * Runs the main program of Duke.
+     * Runs the main program of Duke until termination.
+     * Reads the user command and executes it, until the user issues the exit command.
      */
     public void run() {
-        runCommandLoopUntilExitCommand();
-    }
-
-    private void forceExit() {
-        ui.printErrorMessages("Forced to exit...");
-        System.exit(0);
-    }
-
-    private void runCommandLoopUntilExitCommand() {
         Command command;
         do {
             try {
@@ -73,5 +69,13 @@ public class Duke {
                 ui.printErrorMessages(e.getMessages());
             }
         } while (!command.isExitCommand());
+    }
+
+    /**
+     * Force the application to exit.
+     */
+    private void forceExit() {
+        ui.printErrorMessages("Forced to exit...");
+        System.exit(0);
     }
 }
