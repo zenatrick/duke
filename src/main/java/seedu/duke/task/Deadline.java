@@ -9,7 +9,7 @@ import seedu.duke.common.DateTimeFormat;
  * A Deadline task consist of a description and a time by which the task should be completed.
  */
 public class Deadline extends Task {
-    protected LocalDateTime by;
+    private LocalDateTime by;
 
     /**
      * Constructs a new Deadline task with the specified description and deadline.

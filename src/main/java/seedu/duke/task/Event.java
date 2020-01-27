@@ -9,7 +9,7 @@ import seedu.duke.common.DateTimeFormat;
  * An Event is a type of Task which consist of a description and a time at which the Event is taking place.
  */
 public class Event extends Task {
-    protected LocalDateTime at;
+    private LocalDateTime at;
 
     /**
      * Constructs a new Event task with the specified description and time.
