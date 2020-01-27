@@ -1,5 +1,8 @@
 package seedu.duke.exception;
 
+/**
+ * Signals that there is an error in the user's input command.
+ */
 public class IncorrectCommandException extends DukeException {
     /**
      * Constructs a new IncorrectCommandException with the specified array of messages.

@@ -4,7 +4,7 @@ import seedu.duke.common.Messages;
 import seedu.duke.exception.TaskIndexOutOfBoundException;
 import seedu.duke.task.TaskList;
 
-public class ListCommand implements Command {
+class ListCommand implements Command {
 
     @Override
     public boolean isExitCommand() {

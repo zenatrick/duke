@@ -82,7 +82,7 @@ public class TestTaskList {
             assertNull(taskList.remove(2));
             fail();
         } catch (Exception e) {
-            assertEquals("An error occurred in the program.", e.getMessage());
+            assertEquals("An error occurred in the application.", e.getMessage());
         }
     }
 

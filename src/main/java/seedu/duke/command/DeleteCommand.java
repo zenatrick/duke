@@ -6,7 +6,7 @@ import seedu.duke.exception.TaskIndexOutOfBoundException;
 import seedu.duke.task.Task;
 import seedu.duke.task.TaskList;
 
-public class DeleteCommand implements Command {
+class DeleteCommand implements Command {
 
     private final int taskIndex;
 

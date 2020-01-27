@@ -9,7 +9,8 @@ import seedu.duke.task.Task;
 import seedu.duke.task.TaskList;
 import seedu.duke.task.Todo;
 
-public class AddCommand implements Command {
+
+class AddCommand implements Command {
     static final int TYPE_TODO = 1;
     static final int TYPE_DEADLINE = 2;
     static final int TYPE_EVENT = 3;

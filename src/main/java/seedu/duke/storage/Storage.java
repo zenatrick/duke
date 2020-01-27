@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,17 +14,29 @@ import seedu.duke.exception.InvalidStorageFilePathException;
 import seedu.duke.exception.StorageOperationException;
 import seedu.duke.task.TaskList;
 
+/**
+ * Represents the storage operation handler of the application.
+ */
 public class Storage {
     private static final String DEFAULT_STORAGE_FILEPATH = "data/duke.txt";
 
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy H:m");
-
     private File file;
 
-    public Storage() throws Exception {
+    /**
+     * Constructs a new Storage instance with the default storage file path of "data/duke.txt".
+     *
+     * @throws InvalidStorageFilePathException If the path of the storage file is invalid.
+     */
+    public Storage() throws InvalidStorageFilePathException {
         this(DEFAULT_STORAGE_FILEPATH);
     }
 
+    /**
+     * Constructs a new Storage instance with the specified storage file path.
+     *
+     * @param filePath The path of the storage file.
+     * @throws InvalidStorageFilePathException If the path of the storage file is invalid.
+     */
     public Storage(String filePath) throws InvalidStorageFilePathException {
         file = new File(filePath);
         if (!isValidFilePath()) {
@@ -37,6 +48,12 @@ public class Storage {
         return file.getPath().endsWith(".txt");
     }
 
+    /**
+     * Save the specified TaskList to the storage file.
+     *
+     * @param taskList The TaskList to be saved.
+     * @throws StorageOperationException If there are errors converting and/or storing data to the storage file.
+     */
     public void saveTaskListToStorage(TaskList taskList) throws StorageOperationException {
         file.getParentFile().mkdirs();
         try {
@@ -48,6 +65,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Returns the loaded TaskList from the storage file.
+     * Returns an empty TaskList if the storage file does not exist.
+     *
+     * @return The TaskList that is loaded from the storage file.
+     * @throws StorageOperationException If there are errors reading and/or converting data from the storage file.
+     */
     public TaskList loadTaskListFromStorage() throws StorageOperationException {
         if (!file.exists()) {
             return new TaskList();
