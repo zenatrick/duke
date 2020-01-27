@@ -16,3 +16,4 @@ bin/
 # Duke files
 **/data/duke.txt
 /text-ui-test/ACTUAL.txt
+local.properties
