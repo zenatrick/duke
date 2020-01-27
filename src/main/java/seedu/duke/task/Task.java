@@ -38,6 +38,17 @@ public abstract class Task {
     public abstract String serialize();
 
     /**
+     * Returns true if the description of this task contains the specified keyword.
+     * Otherwise, returns false.
+     *
+     * @param keyword The keyword to check.
+     * @return True if the description of this task contains the specified keyword and false otherwise.
+     */
+    public boolean descriptionContains(String keyword) {
+        return description.contains(keyword);
+    }
+
+    /**
      * Returns the string representation of this task.
      *
      * @return The string representation of this task.
