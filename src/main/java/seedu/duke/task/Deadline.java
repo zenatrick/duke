@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import seedu.duke.common.DateTimeFormat;
 
 public class Deadline extends Task {
-    protected LocalDateTime by;
+    private LocalDateTime by;
 
     public Deadline(String description, LocalDateTime by) {
         super(description);

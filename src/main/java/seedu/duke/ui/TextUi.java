@@ -28,7 +28,7 @@ public class TextUi {
 
     public void printErrorMessages(String... messages) {
         printDivider();
-        printToConsole("\u2639 OOPS!!!");
+        printToConsole("\u2639 OOPS!!!"); // Prints "☹ OOPS!!!"
         printToConsole(messages);
         printDivider();
         out.println();
