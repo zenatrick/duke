@@ -16,8 +16,6 @@ import duke.storage.Storage;
  * Initializes the application and starts the interaction with the user.
  */
 public class Duke {
-    private static final String STORAGE_FILE_PATH_TEMP = "data/duke.txt";
-
     private TaskList taskList;
     private Storage storage;
     private TextUi ui;
@@ -44,7 +42,7 @@ public class Duke {
 
         // Load task list from storage file.
         try {
-            storage = new Storage(STORAGE_FILE_PATH_TEMP);
+            storage = new Storage();
             taskList = storage.loadTaskListFromStorage();
         } catch (InvalidStorageFilePathException | StorageOperationException e) {
             ui.printErrorMessages(e.getMessages());

@@ -3,9 +3,20 @@ package duke.command;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
-import duke.common.DateTimeFormat;
-import duke.common.Messages;
 import duke.exception.IncorrectCommandException;
+
+import static duke.common.DateTimeFormat.INPUT_DATE_TIME_FORMAT;
+import static duke.common.Messages.EMPTY_DESCRIPTION_ERROR_MSG;
+import static duke.common.Messages.EMPTY_TIME_ERROR_MSG;
+import static duke.common.Messages.INVALID_INDEX_ERROR_MSG;
+import static duke.common.Messages.generateAddDeadlineErrorMessage;
+import static duke.common.Messages.generateAddEventErrorMessage;
+import static duke.common.Messages.generateAddTodoErrorMessage;
+import static duke.common.Messages.generateDeleteErrorMessage;
+import static duke.common.Messages.generateDoneErrorMessage;
+import static duke.common.Messages.generateFindErrorMessage;
+import static duke.common.Messages.generateTimeFormatErrorMessage;
+
 
 /**
  * Handles the parsing of the user's input command.
@@ -26,33 +37,33 @@ public class CommandParser {
             // Mark as done command
             if (tokens.length != 2) {
                 // Command is invalid if the number of arguments not exactly 1.
-                throw new IncorrectCommandException(Messages.generateDoneErrorMessage(Messages.INVALID_INDEX_ERROR_MSG));
+                throw new IncorrectCommandException(generateDoneErrorMessage(INVALID_INDEX_ERROR_MSG));
             }
             try {
                 int taskIndex = Integer.parseInt(tokens[1]) - 1; // May throw NumberFormatException
                 return new MarkAsDoneCommand(taskIndex);
             } catch (NumberFormatException e) {
                 // Command is invalid if the argument is not a valid integer.
-                throw new IncorrectCommandException(Messages.generateDoneErrorMessage(Messages.INVALID_INDEX_ERROR_MSG));
+                throw new IncorrectCommandException(generateDoneErrorMessage(INVALID_INDEX_ERROR_MSG));
             }
         } else if (commandWord.equals("delete")) {
             // Delete command
             if (tokens.length != 2) {
                 // Command is invalid if the number of arguments not exactly 1.
-                throw new IncorrectCommandException(Messages.generateDeleteErrorMessage(Messages.INVALID_INDEX_ERROR_MSG));
+                throw new IncorrectCommandException(generateDeleteErrorMessage(INVALID_INDEX_ERROR_MSG));
             }
             try {
                 int taskIndex = Integer.parseInt(tokens[1]) - 1; // May throw NumberFormatException
                 return new DeleteCommand(taskIndex);
             } catch (NumberFormatException e) {
                 // Command is invalid if the argument is not a valid integer.
-                throw new IncorrectCommandException(Messages.generateDeleteErrorMessage(Messages.INVALID_INDEX_ERROR_MSG));
+                throw new IncorrectCommandException(generateDeleteErrorMessage(INVALID_INDEX_ERROR_MSG));
             }
         } else if (commandWord.equals("find")) {
             // Find command
             if (tokens.length != 2) {
                 // Command is invalid if the number of arguments not exactly 1.
-                throw new IncorrectCommandException(Messages.generateFindErrorMessage());
+                throw new IncorrectCommandException(generateFindErrorMessage());
             }
             return new FindCommand(tokens[1]);
         } else if (commandWord.equals("todo")
@@ -106,34 +117,34 @@ public class CommandParser {
         switch (keyword) {
         case "todo":
             if (description.isBlank()) {
-                throw new IncorrectCommandException(Messages.generateAddTodoErrorMessage(Messages.EMPTY_DESCRIPTION_ERROR_MSG));
+                throw new IncorrectCommandException(generateAddTodoErrorMessage(EMPTY_DESCRIPTION_ERROR_MSG));
             }
             return new AddCommand(AddCommand.TYPE_TODO, description, null);
         case "deadline":
             if (description.isBlank()) {
-                throw new IncorrectCommandException(Messages.generateAddDeadlineErrorMessage(Messages.EMPTY_DESCRIPTION_ERROR_MSG));
+                throw new IncorrectCommandException(generateAddDeadlineErrorMessage(EMPTY_DESCRIPTION_ERROR_MSG));
             } else if (timeString.isBlank()) {
-                throw new IncorrectCommandException(Messages.generateAddDeadlineErrorMessage(Messages.EMPTY_TIME_ERROR_MSG));
+                throw new IncorrectCommandException(generateAddDeadlineErrorMessage(EMPTY_TIME_ERROR_MSG));
             }
 
             try {
-                LocalDateTime time = LocalDateTime.parse(timeString, DateTimeFormat.INPUT_DATE_TIME_FORMAT);
+                LocalDateTime time = LocalDateTime.parse(timeString, INPUT_DATE_TIME_FORMAT);
                 return new AddCommand(AddCommand.TYPE_DEADLINE, description, time);
             } catch (DateTimeParseException e) {
-                throw new IncorrectCommandException(Messages.generateTimeFormatErrorMessage());
+                throw new IncorrectCommandException(generateTimeFormatErrorMessage());
             }
         case "event":
             if (description.isBlank()) {
-                throw new IncorrectCommandException(Messages.generateAddEventErrorMessage(Messages.EMPTY_DESCRIPTION_ERROR_MSG));
+                throw new IncorrectCommandException(generateAddEventErrorMessage(EMPTY_DESCRIPTION_ERROR_MSG));
             } else if (timeString.isBlank()) {
-                throw new IncorrectCommandException(Messages.generateAddEventErrorMessage(Messages.EMPTY_TIME_ERROR_MSG));
+                throw new IncorrectCommandException(generateAddEventErrorMessage(EMPTY_TIME_ERROR_MSG));
             }
 
             try {
-                LocalDateTime time = LocalDateTime.parse(timeString, DateTimeFormat.INPUT_DATE_TIME_FORMAT);
+                LocalDateTime time = LocalDateTime.parse(timeString, INPUT_DATE_TIME_FORMAT);
                 return new AddCommand(AddCommand.TYPE_EVENT, description, time);
             } catch (DateTimeParseException e) {
-                throw new IncorrectCommandException(Messages.generateTimeFormatErrorMessage());
+                throw new IncorrectCommandException(generateTimeFormatErrorMessage());
             }
         default: // Never reached
             throw new AssertionError("Invalid commands have already been accounted for.");

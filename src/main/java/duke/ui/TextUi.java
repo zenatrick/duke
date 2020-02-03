@@ -46,10 +46,10 @@ public class TextUi {
      * @param messages The list of error messages to be printed.
      */
     public void printErrorMessages(String... messages) {
-        printDivider();
-        printToConsole("\u2639 OOPS!!!"); // Prints "☹ OOPS!!!"
+        out.println("\t" + DIVIDER);
+        out.println(LINE_PREFIX + "\u2639 OOPS!!!"); // Prints "☹ OOPS!!!"
         printToConsole(messages);
-        printDivider();
+        out.println("\t" + DIVIDER);
         out.println();
     }
 
@@ -59,17 +59,13 @@ public class TextUi {
      * @param messages The list of normal messages to be printed.
      */
     public void printNormalMessages(String... messages) {
-        printDivider();
+        out.println("\t" + DIVIDER);
         printToConsole(messages);
-        printDivider();
+        out.println("\t" + DIVIDER);
         out.println();
     }
 
     private void printToConsole(String... messages) {
         Arrays.stream(messages).map(message -> String.format("%s%s", LINE_PREFIX, message)).forEach(out::println);
-    }
-
-    private void printDivider() {
-        out.println("\t" + DIVIDER);
     }
 }
