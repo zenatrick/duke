@@ -49,7 +49,7 @@ public class Storage {
     }
 
     /**
-     * Save the specified TaskList to the storage file.
+     * Saves the specified TaskList to the storage file.
      *
      * @param taskList The TaskList to be saved.
      * @throws StorageOperationException If there are errors converting and/or storing data to the storage file.
