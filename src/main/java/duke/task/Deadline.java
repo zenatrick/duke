@@ -2,7 +2,7 @@ package duke.task;
 
 import java.time.LocalDateTime;
 
-import duke.common.DateTimeFormat;
+import static duke.common.DateTimeFormat.OUTPUT_DATE_TIME_FORMAT;
 
 /**
  * Represents a Deadline task in the application.
@@ -39,6 +39,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), by.format(DateTimeFormat.OUTPUT_DATE_TIME_FORMAT));
+        return String.format("[D]%s (by: %s)", super.toString(), by.format(OUTPUT_DATE_TIME_FORMAT));
     }
 }

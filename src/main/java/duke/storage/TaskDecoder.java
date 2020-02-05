@@ -5,13 +5,14 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-import duke.common.Messages;
 import duke.exception.StorageOperationException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.Todo;
+
+import static duke.common.Messages.INVALID_ENCODING_MSG;
 
 /**
  * Decodes the storage file data into a TaskList object.
@@ -53,7 +54,7 @@ class TaskDecoder {
                 break;
             default:
                 // Wrong format
-                throw new StorageOperationException(Messages.INVALID_ENCODING_MSG);
+                throw new StorageOperationException(INVALID_ENCODING_MSG);
             }
 
             // Check if task is marked as done (only allow the value of 0 and 1).
@@ -62,11 +63,11 @@ class TaskDecoder {
                 task.markAsDone();
             } else if (doneValue != 0) {
                 // Wrong format
-                throw new StorageOperationException(Messages.INVALID_ENCODING_MSG);
+                throw new StorageOperationException(INVALID_ENCODING_MSG);
             }
         } catch (IndexOutOfBoundsException | DateTimeParseException e) {
             // Wrong format
-            throw new StorageOperationException(Messages.INVALID_ENCODING_MSG);
+            throw new StorageOperationException(INVALID_ENCODING_MSG);
         }
         return task;
     }

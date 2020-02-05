@@ -2,7 +2,7 @@ package duke.task;
 
 import java.time.LocalDateTime;
 
-import duke.common.DateTimeFormat;
+import static duke.common.DateTimeFormat.OUTPUT_DATE_TIME_FORMAT;
 
 /**
  * Represents an Event in the application.
@@ -39,6 +39,6 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[E]%s (at: %s)", super.toString(), at.format(DateTimeFormat.OUTPUT_DATE_TIME_FORMAT));
+        return String.format("[E]%s (at: %s)", super.toString(), at.format(OUTPUT_DATE_TIME_FORMAT));
     }
 }

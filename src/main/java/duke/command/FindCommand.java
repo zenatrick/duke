@@ -2,10 +2,11 @@ package duke.command;
 
 import java.util.ArrayList;
 
-import duke.common.Messages;
+import duke.exception.TaskIndexOutOfBoundException;
 import duke.task.Task;
 import duke.task.TaskList;
-import duke.exception.TaskIndexOutOfBoundException;
+
+import static duke.common.Messages.EMPTY_FIND_RESULT_MSG;
 
 class FindCommand implements Command {
     private final String keyword;
@@ -31,12 +32,12 @@ class FindCommand implements Command {
                     responseBuilder.add(String.format("%d.%s", i + 1, currentTask));
                 }
             } catch (TaskIndexOutOfBoundException e) {
-                throw new AssertionError("Task index will never be out of bound.");
+                assert false : e;
             }
         }
 
         if (responseBuilder.size() == 1) {
-            return new CommandResponse(Messages.EMPTY_FIND_RESULT_MSG);
+            return new CommandResponse(EMPTY_FIND_RESULT_MSG);
         }
         return new CommandResponse(responseBuilder.toArray(new String[0]));
     }

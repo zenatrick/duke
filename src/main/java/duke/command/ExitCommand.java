@@ -1,7 +1,8 @@
 package duke.command;
 
-import duke.common.Messages;
 import duke.task.TaskList;
+
+import static duke.common.Messages.GOODBYE_MSG;
 
 class ExitCommand implements Command {
     @Override
@@ -11,6 +12,6 @@ class ExitCommand implements Command {
 
     @Override
     public CommandResponse execute(TaskList taskList) {
-        return new CommandResponse(Messages.GOODBYE_MSG);
+        return new CommandResponse(GOODBYE_MSG);
     }
 }

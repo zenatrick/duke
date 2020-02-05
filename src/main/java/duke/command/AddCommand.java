@@ -2,12 +2,13 @@ package duke.command;
 
 import java.time.LocalDateTime;
 
-import duke.common.Messages;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.Todo;
+
+import static duke.common.Messages.generateAddSuccessMessage;
 
 
 class AddCommand implements Command {
@@ -41,6 +42,6 @@ class AddCommand implements Command {
     @Override
     public CommandResponse execute(TaskList taskList) {
         taskList.add(taskToAdd);
-        return new CommandResponse(Messages.generateAddSuccessMessage(taskToAdd.toString(), taskList.size()));
+        return new CommandResponse(generateAddSuccessMessage(taskToAdd.toString(), taskList.size()));
     }
 }

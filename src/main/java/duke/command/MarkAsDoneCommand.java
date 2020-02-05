@@ -1,10 +1,11 @@
 package duke.command;
 
-import duke.common.Messages;
 import duke.exception.IncorrectCommandException;
 import duke.exception.TaskIndexOutOfBoundException;
 import duke.task.Task;
 import duke.task.TaskList;
+
+import static duke.common.Messages.generateDoneSuccessMessage;
 
 class MarkAsDoneCommand implements Command {
 
@@ -24,7 +25,7 @@ class MarkAsDoneCommand implements Command {
         try {
             Task task = taskList.get(taskIndex);
             task.markAsDone();
-            return new CommandResponse(Messages.generateDoneSuccessMessage(task.toString()));
+            return new CommandResponse(generateDoneSuccessMessage(task.toString()));
         } catch (TaskIndexOutOfBoundException e) {
             throw new IncorrectCommandException(e.getMessages());
         }

@@ -9,10 +9,13 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import duke.common.Messages;
 import duke.exception.InvalidStorageFilePathException;
 import duke.exception.StorageOperationException;
 import duke.task.TaskList;
+
+import static duke.common.Messages.INVALID_FILE_MSG;
+import static duke.common.Messages.generateReadFromFileErrorMessage;
+import static duke.common.Messages.generateWriteToFileErrorMessage;
 
 /**
  * Represents the storage operation handler of the application.
@@ -40,7 +43,7 @@ public class Storage {
     public Storage(String filePath) throws InvalidStorageFilePathException {
         file = new File(filePath);
         if (!isValidFilePath()) {
-            throw new InvalidStorageFilePathException(Messages.INVALID_FILE_MSG);
+            throw new InvalidStorageFilePathException(INVALID_FILE_MSG);
         }
     }
 
@@ -61,7 +64,7 @@ public class Storage {
             fileWriter.write(TaskEncoder.encodeTasksList(taskList));
             fileWriter.close();
         } catch (IOException e) {
-            throw new StorageOperationException(Messages.generateWriteToFileErrorMessage(file.getAbsolutePath()));
+            throw new StorageOperationException(generateWriteToFileErrorMessage(file.getAbsolutePath()));
         }
     }
 
@@ -87,7 +90,7 @@ public class Storage {
         } catch (FileNotFoundException e) {
             throw new AssertionError("A non-existent file scenario is already handled earlier.");
         } catch (IOException e) {
-            throw new StorageOperationException(Messages.generateReadFromFileErrorMessage(file.getAbsolutePath()));
+            throw new StorageOperationException(generateReadFromFileErrorMessage(file.getAbsolutePath()));
         }
     }
 }
