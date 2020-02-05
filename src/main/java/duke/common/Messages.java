@@ -8,12 +8,6 @@ public class Messages {
      * The welcome message.
      */
     public static final String[] WELCOME_MSG = new String[]{
-        " ____        _        ",
-        "|  _ \\ _   _| | _____ ",
-        "| | | | | | | |/ / _ \\",
-        "| |_| | |_| |   <  __/",
-        "|____/ \\__,_|_|\\_\\___|",
-        "",
         "Hello! I'm Duke.",
         "What can I do for you?"
     };
