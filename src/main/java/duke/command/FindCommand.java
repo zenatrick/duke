@@ -21,6 +21,16 @@ class FindCommand implements Command {
     }
 
     @Override
+    public boolean isUndoCommand() {
+        return false;
+    }
+
+    @Override
+    public boolean canBeUndone() {
+        return false;
+    }
+
+    @Override
     public CommandResponse execute(TaskList taskList) {
         int listSize = taskList.size();
         ArrayList<String> responseBuilder = new ArrayList<>();
@@ -40,5 +50,10 @@ class FindCommand implements Command {
             return new CommandResponse(EMPTY_FIND_RESULT_MSG);
         }
         return new CommandResponse(responseBuilder.toArray(new String[0]));
+    }
+
+    @Override
+    public CommandResponse undo(TaskList taskList) {
+        throw new AssertionError("Undo for find command will not be called.");
     }
 }

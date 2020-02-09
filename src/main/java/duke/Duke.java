@@ -1,5 +1,8 @@
 package duke;
 
+import java.util.LinkedList;
+import java.util.NoSuchElementException;
+
 import duke.command.Command;
 import duke.command.CommandParser;
 import duke.command.CommandResponse;
@@ -20,6 +23,7 @@ public class Duke {
     private Storage storage;
     private TextUi ui;
     private boolean hasGui;
+    private LinkedList<Command> commandHistory;
 
     /**
      * Entry point to run the application.
@@ -36,6 +40,8 @@ public class Duke {
     public Duke() {
         // Set up the text UI.
         ui = new TextUi();
+
+        commandHistory = new LinkedList<>();
     }
 
     /**
@@ -56,9 +62,7 @@ public class Duke {
         do {
             try {
                 command = CommandParser.parse(ui.getCommandFromUser());
-                CommandResponse commandResponse = command.execute(taskList);
-                ui.printNormalMessages(commandResponse.get());
-                storage.saveTaskListToStorage(taskList);
+                ui.printNormalMessages(executeSingleCommand(command));
             } catch (StorageOperationException | IncorrectCommandException e) {
                 command = Command.generateNonExitCommand();
                 ui.printErrorMessages(e.getMessages());
@@ -73,7 +77,20 @@ public class Duke {
      * @return The response messages.
      */
     public String[] executeSingleCommand(Command command) throws IncorrectCommandException, StorageOperationException {
-        CommandResponse commandResponse = command.execute(taskList);
+        CommandResponse commandResponse;
+        if (command.isUndoCommand()) {
+            // Pop the last command and undo
+            try {
+                commandResponse = commandHistory.pop().undo(taskList);
+            } catch (NoSuchElementException e) {
+                throw new IncorrectCommandException("Nothing to undo");
+            }
+        } else {
+            commandResponse = command.execute(taskList);
+            if (command.canBeUndone()) {
+                commandHistory.push(command);
+            }
+        }
         storage.saveTaskListToStorage(taskList);
         return commandResponse.get();
     }

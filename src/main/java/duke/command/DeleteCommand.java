@@ -10,8 +10,12 @@ import static duke.common.Messages.generateDeleteSuccessMessage;
 class DeleteCommand implements Command {
 
     private final int taskIndex;
+    private boolean isExecuted;
+    private Task deletedTask;
 
     DeleteCommand(int taskIndex) {
+        isExecuted = false;
+        deletedTask = null;
         this.taskIndex = taskIndex;
     }
 
@@ -21,12 +25,33 @@ class DeleteCommand implements Command {
     }
 
     @Override
+    public boolean isUndoCommand() {
+        return false;
+    }
+
+    @Override
+    public boolean canBeUndone() {
+        return true;
+    }
+
+    @Override
     public CommandResponse execute(TaskList taskList) throws IncorrectCommandException {
+        assert !isExecuted : "Executing already executed command.";
         try {
-            Task taskRemoved = taskList.remove(taskIndex);
-            return new CommandResponse(generateDeleteSuccessMessage(taskRemoved.toString(), taskList.size()));
+            deletedTask = taskList.remove(taskIndex);
         } catch (TaskIndexOutOfBoundException e) {
             throw new IncorrectCommandException(e.getMessages());
         }
+        isExecuted = true;
+        return new CommandResponse(generateDeleteSuccessMessage(deletedTask.toString(), taskList.size()));
+    }
+
+    @Override
+    public CommandResponse undo(TaskList taskList) {
+        assert isExecuted : "Undoing not executed command.";
+        taskList.add(taskIndex, deletedTask);
+        deletedTask = null;
+        isExecuted = false;
+        return new CommandResponse("undo delete command");
     }
 }

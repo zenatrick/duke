@@ -12,6 +12,16 @@ class ListCommand implements Command {
     }
 
     @Override
+    public boolean isUndoCommand() {
+        return false;
+    }
+
+    @Override
+    public boolean canBeUndone() {
+        return false;
+    }
+
+    @Override
     public CommandResponse execute(TaskList taskList) {
         int listSize = taskList.size();
         if (listSize == 0) {
@@ -23,10 +33,15 @@ class ListCommand implements Command {
                 try {
                     response[i + 1] = String.format("%d.%s", i + 1, taskList.get(i));
                 } catch (TaskIndexOutOfBoundException e) {
-                    assert false : e;
+                    assert false : e; // will not reach here
                 }
             }
             return new CommandResponse(response);
         }
+    }
+
+    @Override
+    public CommandResponse undo(TaskList taskList) {
+        throw new AssertionError("Undo for list command will not be called.");
     }
 }
