@@ -19,11 +19,11 @@ public class TestDeadline {
 
     @Test
     public void testToString() {
-        assertEquals("[D][\u2718] homework (by: 06 Feb 2020, 11:59PM)",
+        assertEquals("[D][✘] homework (by: 06 Feb 2020, 11:59PM)",
                 new Deadline("homework", LocalDateTime.parse("2020-02-06T23:59")).toString());
 
         Deadline deadline = new Deadline("group assignment", LocalDateTime.parse("2020-02-23T23:59"));
         deadline.markAsDone();
-        assertEquals("[D][\u2713] group assignment (by: 23 Feb 2020, 11:59PM)", deadline.toString());
+        assertEquals("[D][✓] group assignment (by: 23 Feb 2020, 11:59PM)", deadline.toString());
     }
 }

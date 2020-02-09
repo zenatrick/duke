@@ -6,6 +6,7 @@ import duke.command.CommandParser;
 import duke.exception.IncorrectCommandException;
 import duke.exception.InvalidStorageFilePathException;
 import duke.exception.StorageOperationException;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -13,7 +14,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 import static duke.common.Messages.WELCOME_MSG;
 
@@ -31,7 +31,6 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Duke duke;
-    private Stage window;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -44,18 +43,16 @@ public class MainWindow extends AnchorPane {
     /**
      * Set the duke application instance and the window instance of this application.
      *
-     * @param d     The duke instance.
-     * @param stage The window instance.
+     * @param d The duke instance.
      */
-    public void setDukeAndWindow(Duke d, Stage stage) {
-        window = stage;
+    public void setDuke(Duke d) {
         duke = d;
         showMessagesToUser(WELCOME_MSG);
         try {
             duke.initStorage();
         } catch (InvalidStorageFilePathException | StorageOperationException e) {
             showMessagesToUser(e.getMessages());
-            window.close();
+            Platform.exit();
         }
     }
 
@@ -81,7 +78,7 @@ public class MainWindow extends AnchorPane {
         try {
             Command command = CommandParser.parse(input);
             if (command.isExitCommand()) {
-                window.close();
+                Platform.exit();
             }
             return duke.executeSingleCommand(command);
         } catch (StorageOperationException | IncorrectCommandException e) {

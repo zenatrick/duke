@@ -16,10 +16,10 @@ public class TestTodo {
 
     @Test
     public void testToString() {
-        assertEquals("[T][\u2718] read books", new Todo("read books").toString());
+        assertEquals("[T][✘] read books", new Todo("read books").toString());
 
         Todo todo = new Todo("borrow books");
         todo.markAsDone();
-        assertEquals("[T][\u2713] borrow books", todo.toString());
+        assertEquals("[T][✓] borrow books", todo.toString());
     }
 }

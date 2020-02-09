@@ -22,7 +22,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setResizable(false);
             stage.show();
-            fxmlLoader.<MainWindow>getController().setDukeAndWindow(new Duke(), stage);
+            fxmlLoader.<MainWindow>getController().setDuke(new Duke());
         } catch (IOException e) {
             e.printStackTrace();
         }

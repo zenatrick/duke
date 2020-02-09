@@ -19,11 +19,11 @@ public class TestEvent {
 
     @Test
     public void testToString() {
-        assertEquals("[E][\u2718] project meeting (at: 06 Jun 2020, 05:00PM)",
+        assertEquals("[E][✘] project meeting (at: 06 Jun 2020, 05:00PM)",
                 new Event("project meeting", LocalDateTime.parse("2020-06-06T17:00")).toString());
 
         Event event = new Event("interview", LocalDateTime.parse("2020-08-08T15:00"));
         event.markAsDone();
-        assertEquals("[E][\u2713] interview (at: 08 Aug 2020, 03:00PM)", event.toString());
+        assertEquals("[E][✓] interview (at: 08 Aug 2020, 03:00PM)", event.toString());
     }
 }
