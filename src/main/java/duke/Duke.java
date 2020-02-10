@@ -45,7 +45,8 @@ public class Duke extends Application {
      * @param input The input command from the user.
      * @return The response messages.
      */
-    public String[] parseAndExecuteSingleCommand(String input) throws IncorrectCommandException, StorageOperationException {
+    public String[] parseAndExecuteSingleCommand(String input) throws IncorrectCommandException,
+            StorageOperationException {
         Command command = CommandParser.parse(input);
         if (command.isExitCommand()) {
             exit();

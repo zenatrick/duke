@@ -10,7 +10,7 @@ import duke.task.TaskList;
 import duke.task.Todo;
 
 import static duke.common.Messages.generateAddSuccessMessage;
-
+import static duke.common.Messages.generateDeleteSuccessMessage;
 
 class AddCommand implements Command {
     static final int TYPE_TODO = 1;
@@ -73,6 +73,6 @@ class AddCommand implements Command {
         }
         addedTaskIndex = -1;
         isExecuted = false;
-        return new CommandResponse("undo add command");
+        return new CommandResponse(generateDeleteSuccessMessage(taskToAdd.toString(), taskList.size()));
     }
 }

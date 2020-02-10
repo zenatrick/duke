@@ -5,6 +5,7 @@ import duke.exception.TaskIndexOutOfBoundException;
 import duke.task.Task;
 import duke.task.TaskList;
 
+import static duke.common.Messages.generateAddSuccessMessage;
 import static duke.common.Messages.generateDeleteSuccessMessage;
 
 class DeleteCommand implements Command {
@@ -50,8 +51,10 @@ class DeleteCommand implements Command {
     public CommandResponse undo(TaskList taskList) {
         assert isExecuted : "Undoing not executed command.";
         taskList.add(taskIndex, deletedTask);
+        CommandResponse response = new CommandResponse(
+                generateAddSuccessMessage(deletedTask.toString(), taskList.size()));
         deletedTask = null;
         isExecuted = false;
-        return new CommandResponse("undo delete command");
+        return response;
     }
 }

@@ -6,6 +6,7 @@ import duke.task.Task;
 import duke.task.TaskList;
 
 import static duke.common.Messages.generateDoneSuccessMessage;
+import static duke.common.Messages.generateNotDoneSuccessMessage;
 
 class MarkAsDoneCommand implements Command {
 
@@ -51,10 +52,10 @@ class MarkAsDoneCommand implements Command {
         try {
             Task task = taskList.get(taskIndex);
             task.markAsNotDone();
+            isExecuted = false;
+            return new CommandResponse(generateNotDoneSuccessMessage(task.toString()));
         } catch (TaskIndexOutOfBoundException e) {
-            assert false : e; // will not reach here
+            throw new AssertionError(e); // will not reach here
         }
-        isExecuted = false;
-        return new CommandResponse("undo mark as done command");
     }
 }
