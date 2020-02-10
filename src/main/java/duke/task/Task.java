@@ -31,6 +31,13 @@ public abstract class Task {
     }
 
     /**
+     * Mark this task as not done.
+     */
+    public void markAsNotDone() {
+        isDone = false;
+    }
+
+    /**
      * Returns the serialized form of this task in the form of a string.
      *
      * @return A string that is the serialized form of this task.

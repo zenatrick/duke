@@ -63,6 +63,18 @@ public class TaskList {
     }
 
     /**
+     * Inserts the specified Task into this TaskList at the specified index.
+     * Shifts the element currently at that position (if any) and any subsequent elements to the right (adds one to
+     * their indices).
+     *
+     * @param index The index at which the specified Task is to be inserted.
+     * @param task  The Task to be inserted.
+     */
+    public void add(int index, Task task) {
+        taskList.add(index, task);
+    }
+
+    /**
      * Removes the Task in this TaskList with the specified task index and then returns it.
      *
      * @param taskIndex The index of the Task to be removed.

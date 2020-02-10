@@ -2,15 +2,15 @@ package duke.command;
 
 import duke.task.TaskList;
 
-class ExitCommand implements Command {
+class UndoCommand implements Command {
     @Override
     public boolean isExitCommand() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean isUndoCommand() {
-        return false;
+        return true;
     }
 
     @Override
@@ -20,11 +20,11 @@ class ExitCommand implements Command {
 
     @Override
     public CommandResponse execute(TaskList taskList) {
-        return new CommandResponse();
+        throw new AssertionError("execute for undo command will not be called.");
     }
 
     @Override
     public CommandResponse undo(TaskList taskList) {
-        throw new AssertionError("Undo for exit command will not be called.");
+        throw new AssertionError("Undo for undo command will not be called.");
     }
 }

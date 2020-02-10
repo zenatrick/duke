@@ -74,6 +74,9 @@ public class CommandParser {
         } else if (userInputCommand.equals("list")) {
             // List command
             return new ListCommand();
+        } else if (userInputCommand.equals("undo")) {
+            // Undo command
+            return new UndoCommand();
         } else if (userInputCommand.equals("bye")) {
             // Exit command
             return new ExitCommand();

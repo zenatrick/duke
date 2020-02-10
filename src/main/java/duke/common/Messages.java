@@ -156,6 +156,19 @@ public class Messages {
     }
 
     /**
+     * Generates and returns the success message upon undoing a mark as as done command.
+     *
+     * @param task The task that is reverted to not done.
+     * @return The success message.
+     */
+    public static String[] generateNotDoneSuccessMessage(String task) {
+        return new String[]{
+            "Noted! I've revert your mark as done command: ",
+            String.format("  %s", task)
+        };
+    }
+
+    /**
      * Generates and returns the error message upon failure to mark a task as done.
      *
      * @param message The detail message.

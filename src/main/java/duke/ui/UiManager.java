@@ -9,6 +9,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class UiManager {
+    /**
+     * Sets up and starts the GUI for the Duke application.
+     * @param primaryStage The primary stage of the application.
+     * @param duke The Duke instance to run.
+     */
     public void start(Stage primaryStage, Duke duke) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/MainWindow.fxml"));

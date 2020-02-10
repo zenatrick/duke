@@ -1,14 +1,17 @@
 package duke;
 
+import java.util.LinkedList;
+import java.util.NoSuchElementException;
+
 import duke.command.Command;
 import duke.command.CommandParser;
 import duke.command.CommandResponse;
 import duke.exception.IncorrectCommandException;
 import duke.exception.InvalidStorageFilePathException;
 import duke.exception.StorageOperationException;
-import duke.ui.UiManager;
 import duke.storage.Storage;
 import duke.task.TaskList;
+import duke.ui.UiManager;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -20,6 +23,7 @@ public class Duke extends Application {
     private TaskList taskList;
     private Storage storage;
     private UiManager ui;
+    private LinkedList<Command> commandHistory;
 
     /**
      * Constructs a new Duke instance .
@@ -27,6 +31,7 @@ public class Duke extends Application {
     public Duke() {
         // Set up the UI.
         ui = new UiManager();
+        commandHistory = new LinkedList<>();
     }
 
     @Override
@@ -40,12 +45,26 @@ public class Duke extends Application {
      * @param input The input command from the user.
      * @return The response messages.
      */
-    public String[] parseAndExecuteSingleCommand(String input) throws IncorrectCommandException, StorageOperationException {
+    public String[] parseAndExecuteSingleCommand(String input) throws IncorrectCommandException,
+            StorageOperationException {
         Command command = CommandParser.parse(input);
         if (command.isExitCommand()) {
             exit();
         }
-        CommandResponse commandResponse = command.execute(taskList);
+        CommandResponse commandResponse;
+        if (command.isUndoCommand()) {
+            // Pop the last command and undo
+            try {
+                commandResponse = commandHistory.pop().undo(taskList);
+            } catch (NoSuchElementException e) {
+                throw new IncorrectCommandException("Nothing to undo");
+            }
+        } else {
+            commandResponse = command.execute(taskList);
+            if (command.canBeUndone()) {
+                commandHistory.push(command);
+            }
+        }
         storage.saveTaskListToStorage(taskList);
         return commandResponse.get();
     }
