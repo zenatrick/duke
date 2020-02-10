@@ -3,76 +3,48 @@ package duke;
 import duke.command.Command;
 import duke.command.CommandParser;
 import duke.command.CommandResponse;
-import duke.common.Messages;
 import duke.exception.IncorrectCommandException;
 import duke.exception.InvalidStorageFilePathException;
 import duke.exception.StorageOperationException;
+import duke.ui.UiManager;
 import duke.storage.Storage;
 import duke.task.TaskList;
-import duke.ui.TextUi;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.stage.Stage;
 
 /**
- * Entry point of the application Duke.
  * Initializes the application and starts the interaction with the user.
  */
-public class Duke {
+public class Duke extends Application {
     private TaskList taskList;
     private Storage storage;
-    private TextUi ui;
-    private boolean hasGui;
-
-    /**
-     * Entry point to run the application.
-     *
-     * @param args Command line arguments.
-     */
-    public static void main(String[] args) {
-        new Duke().run();
-    }
+    private UiManager ui;
 
     /**
      * Constructs a new Duke instance .
      */
     public Duke() {
-        // Set up the text UI.
-        ui = new TextUi();
+        // Set up the UI.
+        ui = new UiManager();
     }
 
-    /**
-     * Runs the main program of Duke until termination.
-     * Reads the user command and executes it, until the user issues the exit command.
-     */
-    public void run() {
-        ui.printNormalMessages(Messages.WELCOME_MSG);
-
-        try {
-            initStorage();
-        } catch (InvalidStorageFilePathException | StorageOperationException e) {
-            ui.printErrorMessages(e.getMessages());
-            forceExit();
-        }
-
-        Command command;
-        do {
-            try {
-                command = CommandParser.parse(ui.getCommandFromUser());
-                CommandResponse commandResponse = command.execute(taskList);
-                ui.printNormalMessages(commandResponse.get());
-                storage.saveTaskListToStorage(taskList);
-            } catch (StorageOperationException | IncorrectCommandException e) {
-                command = Command.generateNonExitCommand();
-                ui.printErrorMessages(e.getMessages());
-            }
-        } while (!command.isExitCommand());
+    @Override
+    public void start(Stage primaryStage) {
+        ui.start(primaryStage, this);
     }
 
     /**
      * Executes a single input command from the user and return the response messages.
      *
-     * @param command The input command from the user.
+     * @param input The input command from the user.
      * @return The response messages.
      */
-    public String[] executeSingleCommand(Command command) throws IncorrectCommandException, StorageOperationException {
+    public String[] parseAndExecuteSingleCommand(String input) throws IncorrectCommandException, StorageOperationException {
+        Command command = CommandParser.parse(input);
+        if (command.isExitCommand()) {
+            exit();
+        }
         CommandResponse commandResponse = command.execute(taskList);
         storage.saveTaskListToStorage(taskList);
         return commandResponse.get();
@@ -88,10 +60,10 @@ public class Duke {
     }
 
     /**
-     * Forces the application to exit.
+     * Exits the application.
      */
-    private void forceExit() {
-        ui.printErrorMessages("Forced to exit...");
-        System.exit(1);
+    private void exit() {
+        Platform.exit();
+        System.exit(0);
     }
 }

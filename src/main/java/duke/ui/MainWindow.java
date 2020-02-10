@@ -1,8 +1,6 @@
-package duke.gui;
+package duke.ui;
 
 import duke.Duke;
-import duke.command.Command;
-import duke.command.CommandParser;
 import duke.exception.IncorrectCommandException;
 import duke.exception.InvalidStorageFilePathException;
 import duke.exception.StorageOperationException;
@@ -53,6 +51,7 @@ public class MainWindow extends AnchorPane {
         } catch (InvalidStorageFilePathException | StorageOperationException e) {
             showMessagesToUser(e.getMessages());
             Platform.exit();
+            System.exit(1);
         }
     }
 
@@ -76,11 +75,7 @@ public class MainWindow extends AnchorPane {
 
     private String[] getResponse(String input) {
         try {
-            Command command = CommandParser.parse(input);
-            if (command.isExitCommand()) {
-                Platform.exit();
-            }
-            return duke.executeSingleCommand(command);
+            return duke.parseAndExecuteSingleCommand(input);
         } catch (StorageOperationException | IncorrectCommandException e) {
             return e.getMessages();
         }

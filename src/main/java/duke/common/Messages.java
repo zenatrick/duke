@@ -13,13 +13,6 @@ public class Messages {
     };
 
     /**
-     * The goodbye message.
-     */
-    public static final String[] GOODBYE_MSG = new String[]{
-        "Bye. Hope to see you again soon!"
-    };
-
-    /**
      * The message displayed when this list of task is empty.
      */
     public static final String[] EMPTY_TASK_LIST_MSG = new String[]{
