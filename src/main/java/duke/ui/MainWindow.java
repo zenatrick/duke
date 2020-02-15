@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -29,9 +28,6 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Duke duke;
-
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @FXML
     public void initialize() {
@@ -57,7 +53,7 @@ public class MainWindow extends AnchorPane {
 
     public void showMessagesToUser(String... messages) {
         dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog(String.join("\n", messages), dukeImage));
+                new DukeDialogBox(String.join("\n", messages)));
     }
 
     /**
@@ -68,7 +64,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String[] response = getResponse(input);
-        dialogContainer.getChildren().add(DialogBox.getUserDialog(input, userImage));
+        dialogContainer.getChildren().add(new UserDialogBox(input));
         showMessagesToUser(response);
         userInput.clear();
     }
