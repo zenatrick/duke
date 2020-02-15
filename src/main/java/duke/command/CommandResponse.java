@@ -4,18 +4,23 @@ package duke.command;
  * Represents the response given to the user after executing a command.
  */
 public class CommandResponse {
-    private String[] response;
+    private String response;
 
-    CommandResponse(String... response) {
+    CommandResponse() {
+        this("");
+    }
+
+    CommandResponse(String response) {
         this.response = response;
     }
 
     /**
-     * Returns the array of response messages.
+     * Returns the string representation of this CommandResponse.
      *
-     * @return The array of response messages.
+     * @return The string representation of this CommandResponse.
      */
-    public String[] get() {
+    @Override
+    public String toString() {
         return response;
     }
 }

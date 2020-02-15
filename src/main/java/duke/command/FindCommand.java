@@ -1,7 +1,5 @@
 package duke.command;
 
-import java.util.ArrayList;
-
 import duke.exception.TaskIndexOutOfBoundException;
 import duke.task.Task;
 import duke.task.TaskList;
@@ -33,23 +31,24 @@ class FindCommand implements Command {
     @Override
     public CommandResponse execute(TaskList taskList) {
         int listSize = taskList.size();
-        ArrayList<String> responseBuilder = new ArrayList<>();
-        responseBuilder.add("Here are the matching tasks in your list: ");
+        int count = 0;
+        StringBuilder responseBuilder = new StringBuilder("Here are the matching tasks in your list:\n");
         for (int i = 0; i < listSize; i++) {
             try {
                 Task currentTask = taskList.get(i);
                 if (currentTask.descriptionContains(keyword)) {
-                    responseBuilder.add(String.format("%d.%s", i + 1, currentTask));
+                    count++;
+                    responseBuilder.append(i + 1).append('.').append(currentTask).append('\n');
                 }
             } catch (TaskIndexOutOfBoundException e) {
                 assert false : e;
             }
         }
 
-        if (responseBuilder.size() == 1) {
+        if (count == 0) {
             return new CommandResponse(EMPTY_FIND_RESULT_MSG);
         }
-        return new CommandResponse(responseBuilder.toArray(new String[0]));
+        return new CommandResponse(responseBuilder.toString());
     }
 
     @Override

@@ -5,11 +5,11 @@ package duke.exception;
  */
 public class InvalidStorageFilePathException extends DukeException {
     /**
-     * Constructs a new InvalidStorageFilePathException with the specified array of messages.
+     * Constructs a new InvalidStorageFilePathException with the specified error message.
      *
-     * @param messages The detail array of messages.
+     * @param message The detail error message.
      */
-    public InvalidStorageFilePathException(String... messages) {
-        super(messages);
+    public InvalidStorageFilePathException(String message) {
+        super(message);
     }
 }

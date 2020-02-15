@@ -41,7 +41,7 @@ class DeleteCommand implements Command {
         try {
             deletedTask = taskList.remove(taskIndex);
         } catch (TaskIndexOutOfBoundException e) {
-            throw new IncorrectCommandException(e.getMessages());
+            throw new IncorrectCommandException(e.getMessage());
         }
         isExecuted = true;
         return new CommandResponse(generateDeleteSuccessMessage(deletedTask.toString(), taskList.size()));

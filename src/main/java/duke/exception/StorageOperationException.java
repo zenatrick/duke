@@ -5,11 +5,11 @@ package duke.exception;
  */
 public class StorageOperationException extends DukeException {
     /**
-     * Constructs a new StorageOperationException with the specified array of messages.
+     * Constructs a new StorageOperationException with the specified error message.
      *
-     * @param messages The detail array of messages.
+     * @param message The detail error message.
      */
-    public StorageOperationException(String... messages) {
-        super(messages);
+    public StorageOperationException(String message) {
+        super(message);
     }
 }

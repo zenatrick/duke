@@ -7,25 +7,23 @@ public class Messages {
     /**
      * The welcome message.
      */
-    public static final String[] WELCOME_MSG = new String[]{
-        "Hello! I'm Duke.",
-        "What can I do for you?"
-    };
+    public static final String WELCOME_MSG =
+            "Hello! I'm Duke.\n"
+                    + "What can I do for you?";
 
     /**
      * The message displayed when this list of task is empty.
      */
-    public static final String[] EMPTY_TASK_LIST_MSG = new String[]{
-        "There are currently no tasks in your list.",
-        "Add a task by using one of the following commands: ",
-        "  todo [description]",
-        "  deadline [description] /by [time]",
-        "  event [description] /at [time]",
-        "Time should be in the format of 'dd/MM/yyyy HH:mm'"
-    };
-    public static final String[] EMPTY_FIND_RESULT_MSG = new String[]{
-        "There are no matching tasks in your list."
-    };
+    public static final String EMPTY_TASK_LIST_MSG =
+            "There are currently no tasks in your list.\n"
+                    + "Add a task by using one of the following commands:\n"
+                    + "\ttodo [description]\n"
+                    + "\tdeadline [description] /by [time]\n"
+                    + "\tevent [description] /at [time]\n"
+                    + "Time should be in the format of 'dd/MM/yyyy HH:mm'";
+
+    public static final String EMPTY_FIND_RESULT_MSG =
+            "There are no matching tasks in your list.";
 
     /**
      * The message displayed when the description of a task to be added is not specified.
@@ -46,10 +44,9 @@ public class Messages {
     /**
      * The message displayed when the application is unable to decode the storage file data.
      */
-    public static final String[] INVALID_ENCODING_MSG = new String[]{
-        "Encoded task in your storage file has an invalid format.",
-        "I am unable to decode."
-    };
+    public static final String INVALID_ENCODING_MSG =
+            "Encoded task in your storage file has an invalid format.\n"
+                    + "I am unable to decode.";
 
     /**
      * The message displayed when the path of the storage file is invalid.
@@ -62,11 +59,9 @@ public class Messages {
      * @param filePath The path of the storage file.
      * @return The error message.
      */
-    public static String[] generateWriteToFileErrorMessage(String filePath) {
-        return new String[]{
-            "Unable to write to file: ",
-            String.format("  %s", filePath)
-        };
+    public static String generateWriteToFileErrorMessage(String filePath) {
+        return "Unable to write to file: \n"
+                + String.format("\t%s", filePath);
     }
 
     /**
@@ -75,11 +70,9 @@ public class Messages {
      * @param filePath The path of the storage file.
      * @return The error message.
      */
-    public static String[] generateReadFromFileErrorMessage(String filePath) {
-        return new String[]{
-            "Error reading data from file: ",
-            String.format("  %s", filePath)
-        };
+    public static String generateReadFromFileErrorMessage(String filePath) {
+        return "Error reading data from file: \n"
+                + String.format("\t%s", filePath);
     }
 
     /**
@@ -89,12 +82,10 @@ public class Messages {
      * @param size The current size of the TaskList.
      * @return The success message.
      */
-    public static String[] generateAddSuccessMessage(String task, int size) {
-        return new String[]{
-            "Got it. I've added this task: ",
-            String.format("  %s", task),
-            String.format("Now you have %d tasks in the list.", size)
-        };
+    public static String generateAddSuccessMessage(String task, int size) {
+        return "Got it. I've added this task: \n"
+                + String.format("\t%s\n", task)
+                + String.format("Now you have %d tasks in the list.", size);
     }
 
 
@@ -104,12 +95,10 @@ public class Messages {
      * @param message The detail message.
      * @return The error message.
      */
-    public static String[] generateAddTodoErrorMessage(String message) {
-        return new String[]{
-            message,
-            "To add a todo, tell me in this format: ",
-            "  todo [description]"
-        };
+    public static String generateAddTodoErrorMessage(String message) {
+        return message + "\n"
+                + "To add a todo, tell me in this format:\n"
+                + "\ttodo [description]";
     }
 
     /**
@@ -118,13 +107,11 @@ public class Messages {
      * @param message The detail message.
      * @return The error message.
      */
-    public static String[] generateAddDeadlineErrorMessage(String message) {
-        return new String[]{
-            message,
-            "To add a deadline, tell me in this format: ",
-            "  todo [description] /by [time]",
-            "  Time should be in the format of 'dd/MM/yyyy HH:mm'"
-        };
+    public static String generateAddDeadlineErrorMessage(String message) {
+        return message + "\n"
+                + "To add a deadline, tell me in this format:\n"
+                + "\ttodo [description] /by [time]\n"
+                + "\tTime should be in the format of 'dd/MM/yyyy HH:mm'";
     }
 
     /**
@@ -133,13 +120,11 @@ public class Messages {
      * @param message The detail message.
      * @return The error message.
      */
-    public static String[] generateAddEventErrorMessage(String message) {
-        return new String[]{
-            message,
-            "To add an event, tell me in this format: ",
-            "  todo [description] /at [time]",
-            "  Time should be in the format of 'dd/MM/yyyy HH:mm'"
-        };
+    public static String generateAddEventErrorMessage(String message) {
+        return message + "\n"
+                + "To add an event, tell me in this format: "
+                + "\ttodo [description] /at [time]"
+                + "\tTime should be in the format of 'dd/MM/yyyy HH:mm'";
     }
 
     /**
@@ -148,11 +133,9 @@ public class Messages {
      * @param task The task that is marked as done.
      * @return The success message.
      */
-    public static String[] generateDoneSuccessMessage(String task) {
-        return new String[]{
-            "Nice! I've marked this task as done: ",
-            String.format("  %s", task)
-        };
+    public static String generateDoneSuccessMessage(String task) {
+        return "Nice! I've marked this task as done:\n"
+                + String.format("\t%s", task);
     }
 
     /**
@@ -161,11 +144,9 @@ public class Messages {
      * @param task The task that is reverted to not done.
      * @return The success message.
      */
-    public static String[] generateNotDoneSuccessMessage(String task) {
-        return new String[]{
-            "Noted! I've revert your mark as done command: ",
-            String.format("  %s", task)
-        };
+    public static String generateNotDoneSuccessMessage(String task) {
+        return "Noted! I've revert your mark as done command:\n"
+                + String.format("\t%s", task);
     }
 
     /**
@@ -174,12 +155,10 @@ public class Messages {
      * @param message The detail message.
      * @return The error message.
      */
-    public static String[] generateDoneErrorMessage(String message) {
-        return new String[]{
-            message,
-            "To mark a task as done, tell me in this format: ",
-            "  done [task_index]"
-        };
+    public static String generateDoneErrorMessage(String message) {
+        return message + "\n"
+                + "To mark a task as done, tell me in this format:\n"
+                + "\tdone [task_index]";
     }
 
     /**
@@ -187,11 +166,9 @@ public class Messages {
      *
      * @return The error message.
      */
-    public static String[] generateTimeFormatErrorMessage() {
-        return new String[]{
-            "I don't understand the time entered.",
-            "Time should be in the format of 'dd/MM/yyyy HH:mm'"
-        };
+    public static String generateTimeFormatErrorMessage() {
+        return "I don't understand the time entered.\n"
+                + "Time should be in the format of 'dd/MM/yyyy HH:mm'";
     }
 
     /**
@@ -201,12 +178,10 @@ public class Messages {
      * @param size The current size of the TaskList.
      * @return The success message.
      */
-    public static String[] generateDeleteSuccessMessage(String task, int size) {
-        return new String[]{
-            "Noted. I've removed this task: ",
-            String.format("  %s", task),
-            String.format("Now you have %d tasks in the list.", size)
-        };
+    public static String generateDeleteSuccessMessage(String task, int size) {
+        return "Noted. I've removed this task:\n"
+                + String.format("\t%s\n", task)
+                + String.format("Now you have %d tasks in the list.", size);
     }
 
     /**
@@ -215,12 +190,10 @@ public class Messages {
      * @param message The detail message.
      * @return The error message.
      */
-    public static String[] generateDeleteErrorMessage(String message) {
-        return new String[]{
-            message,
-            "To delete a task, tell me in this format: ",
-            "  delete [task_index]"
-        };
+    public static String generateDeleteErrorMessage(String message) {
+        return message + "\n"
+                + "To delete a task, tell me in this format:\n"
+                + "\tdelete [task_index]";
     }
 
     /**
@@ -228,13 +201,11 @@ public class Messages {
      *
      * @return The error message.
      */
-    public static String[] generateFindErrorMessage() {
-        return new String[]{
-            "Too many arguments for this command. ",
-            "To find a task, tell me in this format: ",
-            " find [keyword]",
-            "Only one keyword is allowed at a time."
-        };
+    public static String generateFindErrorMessage() {
+        return "Too many arguments for this command.\n"
+                + "To find a task, tell me in this format:\n"
+                + "\tfind [keyword]\n"
+                + "Only one keyword is allowed at a time.";
     }
 
     /**
@@ -243,9 +214,7 @@ public class Messages {
      * @param taskIndex The user's input task index that is invalid.
      * @return The error message.
      */
-    public static String[] generateTaskIndexNotFoundMessage(int taskIndex) {
-        return new String[]{
-            String.format("The task of index %d cannot be found in your list.", taskIndex)
-        };
+    public static String generateTaskIndexNotFoundMessage(int taskIndex) {
+        return String.format("The task of index %d cannot be found in your list.", taskIndex);
     }
 }

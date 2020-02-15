@@ -5,11 +5,11 @@ package duke.exception;
  */
 public class IncorrectCommandException extends DukeException {
     /**
-     * Constructs a new IncorrectCommandException with the specified array of messages.
+     * Constructs a new IncorrectCommandException with the specified error message.
      *
-     * @param messages The detail array of messages.
+     * @param message The detail error message.
      */
-    public IncorrectCommandException(String... messages) {
-        super(messages);
+    public IncorrectCommandException(String message) {
+        super(message);
     }
 }

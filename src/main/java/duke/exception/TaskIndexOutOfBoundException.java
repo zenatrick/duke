@@ -5,11 +5,11 @@ package duke.exception;
  */
 public class TaskIndexOutOfBoundException extends DukeException {
     /**
-     * Constructs a new TaskIndexOutOfBoundException with the specified array of messages.
+     * Constructs a new TaskIndexOutOfBoundException with the specified error message.
      *
-     * @param messages The detail array of messages.
+     * @param message The detail error message.
      */
-    public TaskIndexOutOfBoundException(String... messages) {
-        super(messages);
+    public TaskIndexOutOfBoundException(String message) {
+        super(message);
     }
 }

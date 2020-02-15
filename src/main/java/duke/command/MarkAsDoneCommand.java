@@ -42,7 +42,7 @@ class MarkAsDoneCommand implements Command {
             isExecuted = true;
             return new CommandResponse(generateDoneSuccessMessage(task.toString()));
         } catch (TaskIndexOutOfBoundException e) {
-            throw new IncorrectCommandException(e.getMessages());
+            throw new IncorrectCommandException(e.getMessage());
         }
     }
 

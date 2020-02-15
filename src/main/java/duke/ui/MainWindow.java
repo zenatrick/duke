@@ -42,15 +42,14 @@ public class MainWindow extends AnchorPane {
         try {
             duke.initStorage();
         } catch (InvalidStorageFilePathException | StorageOperationException e) {
-            showMessagesToUser(e.getMessages());
+            showMessagesToUser(e.getMessage());
             Platform.exit();
             System.exit(1);
         }
     }
 
-    public void showMessagesToUser(String... messages) {
-        dialogContainer.getChildren().add(
-                new DukeDialogBox(String.join("\n", messages)));
+    public void showMessagesToUser(String message) {
+        dialogContainer.getChildren().add(new DukeDialogBox(message));
     }
 
     /**
@@ -60,17 +59,16 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String[] response = getResponse(input);
         dialogContainer.getChildren().add(new UserDialogBox(input));
-        showMessagesToUser(response);
+        showMessagesToUser(getResponse(input));
         userInput.clear();
     }
 
-    private String[] getResponse(String input) {
+    private String getResponse(String input) {
         try {
             return duke.parseAndExecuteSingleCommand(input);
         } catch (StorageOperationException | IncorrectCommandException e) {
-            return e.getMessages();
+            return e.getMessage();
         }
     }
 

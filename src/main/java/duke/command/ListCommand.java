@@ -27,16 +27,15 @@ class ListCommand implements Command {
         if (listSize == 0) {
             return new CommandResponse(EMPTY_TASK_LIST_MSG);
         } else {
-            String[] response = new String[listSize + 1];
-            response[0] = "Here are the tasks in your list: ";
+            StringBuilder responseBuilder = new StringBuilder("Here are the tasks in your list:\n");
             for (int i = 0; i < listSize; i++) {
                 try {
-                    response[i + 1] = String.format("%d.%s", i + 1, taskList.get(i));
+                    responseBuilder.append(i + 1).append('.').append(taskList.get(i)).append('\n');
                 } catch (TaskIndexOutOfBoundException e) {
                     assert false : e; // will not reach here
                 }
             }
-            return new CommandResponse(response);
+            return new CommandResponse(responseBuilder.toString());
         }
     }
 
