@@ -9,7 +9,7 @@
 <fx:root fx:id="dukeDialogBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0"
          type="HBox" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/">
     <StackPane>
-        <Circle fx:id="avatar" fill="WHITE" radius="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0"/>
+        <Circle fx:id="avatar" fill="#c4e0f9" radius="50.0" stroke="#475672" strokeType="INSIDE" strokeWidth="3.0"/>
     </StackPane>
     <Label fx:id="dialog" text="Label" wrapText="true"/>
     <padding>

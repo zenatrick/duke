@@ -20,6 +20,6 @@ public class TestTodo {
 
         Todo todo = new Todo("borrow books");
         todo.markAsDone();
-        assertEquals("[T][✓] borrow books", todo.toString());
+        assertEquals("[T][✔] borrow books", todo.toString());
     }
 }

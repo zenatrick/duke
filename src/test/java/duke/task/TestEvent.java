@@ -24,6 +24,6 @@ public class TestEvent {
 
         Event event = new Event("interview", LocalDateTime.parse("2020-08-08T15:00"));
         event.markAsDone();
-        assertEquals("[E][✓] interview (at: 08 Aug 2020, 03:00PM)", event.toString());
+        assertEquals("[E][✔] interview (at: 08 Aug 2020, 03:00PM)", event.toString());
     }
 }

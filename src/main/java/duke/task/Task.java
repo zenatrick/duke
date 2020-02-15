@@ -20,7 +20,7 @@ public abstract class Task {
      * @return The status icon of this task.
      */
     public String getStatusIcon() {
-        return isDone ? "\u2713" : "\u2718"; // "return ✓ or ✘ symbols;
+        return isDone ? "\u2714" : "\u2718"; // "return ✔ or ✘ symbols;
     }
 
     /**

@@ -145,7 +145,7 @@ public class Messages {
      * @return The success message.
      */
     public static String generateNotDoneSuccessMessage(String task) {
-        return "Noted! I've revert your mark as done command:\n"
+        return "Noted! I've reverted your mark as done command:\n"
                 + String.format("\t%s", task);
     }
 

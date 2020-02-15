@@ -4,12 +4,11 @@
 }
 
 .text-field {
-    -fx-text-fill: white;
-    -fx-background-color: transparent, #456469;
+    -fx-background-color: transparent, #C4E0F9;
 }
 
 .text-field:focused {
-    -fx-background-color: #8B9EA1, #456469;
+    -fx-background-color: #67D1FA, #B3E8FC;
 }
 
 #scrollPane {

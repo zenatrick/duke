@@ -24,6 +24,6 @@ public class TestDeadline {
 
         Deadline deadline = new Deadline("group assignment", LocalDateTime.parse("2020-02-23T23:59"));
         deadline.markAsDone();
-        assertEquals("[D][✓] group assignment (by: 23 Feb 2020, 11:59PM)", deadline.toString());
+        assertEquals("[D][✔] group assignment (by: 23 Feb 2020, 11:59PM)", deadline.toString());
     }
 }
