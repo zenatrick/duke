@@ -5,6 +5,7 @@ import java.io.IOException;
 import duke.Duke;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -19,6 +20,8 @@ public class UiManager {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/icon.png")));
+            primaryStage.setTitle("Duke");
             primaryStage.setScene(scene);
             scene.getStylesheets().add(getClass().getResource("/style/index.css").toExternalForm());
             primaryStage.setResizable(false);
