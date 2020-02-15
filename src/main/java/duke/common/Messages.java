@@ -46,7 +46,8 @@ public class Messages {
      */
     public static final String INVALID_ENCODING_MSG =
             "Encoded task in your storage file has an invalid format.\n"
-                    + "I am unable to decode.";
+                    + "I am unable to decode.\n"
+                    + "Please exit Duke and delete the corrupted file 'data/duke.txt'";
 
     /**
      * The message displayed when the path of the storage file is invalid.

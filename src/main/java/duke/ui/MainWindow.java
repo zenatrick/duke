@@ -4,7 +4,6 @@ import duke.Duke;
 import duke.exception.IncorrectCommandException;
 import duke.exception.InvalidStorageFilePathException;
 import duke.exception.StorageOperationException;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -43,8 +42,7 @@ public class MainWindow extends AnchorPane {
             duke.initStorage();
         } catch (InvalidStorageFilePathException | StorageOperationException e) {
             showMessagesToUser(e.getMessage());
-            Platform.exit();
-            System.exit(1);
+            d.enterStorageErrorMode();
         }
     }
 

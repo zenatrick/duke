@@ -16,6 +16,8 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
+import static duke.common.Messages.INVALID_ENCODING_MSG;
+
 /**
  * Initializes the application and starts the interaction with the user.
  */
@@ -24,6 +26,7 @@ public class Duke extends Application {
     private Storage storage;
     private final UiManager ui;
     private final LinkedList<Command> commandHistory;
+    private boolean hasFileStorageError;
 
     /**
      * Constructs a new Duke instance .
@@ -32,6 +35,7 @@ public class Duke extends Application {
         // Set up the UI.
         ui = new UiManager();
         commandHistory = new LinkedList<>();
+        hasFileStorageError = false;
     }
 
     @Override
@@ -50,6 +54,9 @@ public class Duke extends Application {
         Command command = CommandParser.parse(input);
         if (command.isExitCommand()) {
             exit();
+        }
+        if (hasFileStorageError) {
+            return INVALID_ENCODING_MSG;
         }
         CommandResponse commandResponse;
         if (command.isUndoCommand()) {
@@ -76,6 +83,15 @@ public class Duke extends Application {
         // Load task list from storage file.
         storage = new Storage();
         taskList = storage.loadTaskListFromStorage();
+    }
+
+    /**
+     * Enters storage error mode.
+     * Used when a StorageOperationException prevents the normal operation of the application.
+     * Only the ExitCommand will be able to run.
+     */
+    public void enterStorageErrorMode() {
+        hasFileStorageError = true;
     }
 
     /**
