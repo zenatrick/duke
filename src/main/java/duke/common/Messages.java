@@ -197,12 +197,12 @@ public class Messages {
     }
 
     /**
-     * Generates and returns the error message when the user's input more than one argument for the find command.
+     * Generates and returns the error message when the user input more or less than one argument for the find command.
      *
      * @return The error message.
      */
     public static String generateFindErrorMessage() {
-        return "Too many arguments for this command.\n"
+        return "Only one keyword is allowed for this command.\n"
                 + "To find a task, tell me in this format:\n"
                 + "\tfind [keyword]\n"
                 + "Only one keyword is allowed at a time.";

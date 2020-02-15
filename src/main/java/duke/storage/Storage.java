@@ -23,7 +23,7 @@ import static duke.common.Messages.generateWriteToFileErrorMessage;
 public class Storage {
     private static final String DEFAULT_STORAGE_FILEPATH = "data/duke.txt";
 
-    private File file;
+    private final File file;
 
     /**
      * Constructs a new Storage instance with the default storage file path of "data/duke.txt".

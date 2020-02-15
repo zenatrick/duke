@@ -22,8 +22,8 @@ import javafx.stage.Stage;
 public class Duke extends Application {
     private TaskList taskList;
     private Storage storage;
-    private UiManager ui;
-    private LinkedList<Command> commandHistory;
+    private final UiManager ui;
+    private final LinkedList<Command> commandHistory;
 
     /**
      * Constructs a new Duke instance .

@@ -4,7 +4,7 @@ package duke.command;
  * Represents the response given to the user after executing a command.
  */
 public class CommandResponse {
-    private String response;
+    private final String response;
 
     CommandResponse() {
         this("");

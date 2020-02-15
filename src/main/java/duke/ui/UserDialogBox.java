@@ -18,7 +18,6 @@ class UserDialogBox extends HBox {
      * Initialise the dialog box of duke with the specified text and image to be displayed.
      *
      * @param text The text to be displayed.
-     * @return The dialog box of duke.
      */
     UserDialogBox(String text) {
         try {

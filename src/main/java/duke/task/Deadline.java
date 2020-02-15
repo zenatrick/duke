@@ -9,7 +9,7 @@ import static duke.common.DateTimeFormat.OUTPUT_DATE_TIME_FORMAT;
  * A Deadline task consist of a description and a time by which the task should be completed.
  */
 public class Deadline extends Task {
-    private LocalDateTime by;
+    private final LocalDateTime by;
 
     /**
      * Constructs a new Deadline task with the specified description and deadline.

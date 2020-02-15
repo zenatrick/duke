@@ -54,7 +54,7 @@ public class TestTaskList {
             assertNull(taskList.get(2));
             fail();
         } catch (Exception e) {
-            assertEquals("An error occurred in the application.", e.getMessage());
+            assertEquals("The task of index 3 cannot be found in your list.", e.getMessage());
         }
     }
 
@@ -82,7 +82,7 @@ public class TestTaskList {
             assertNull(taskList.remove(2));
             fail();
         } catch (Exception e) {
-            assertEquals("An error occurred in the application.", e.getMessage());
+            assertEquals("The task of index 3 cannot be found in your list.", e.getMessage());
         }
     }
 

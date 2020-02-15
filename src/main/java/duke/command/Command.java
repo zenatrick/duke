@@ -8,41 +8,6 @@ import duke.task.TaskList;
  */
 public interface Command {
     /**
-     * Returns an anonymous dummy Command that is not an ExitCommand.
-     * Calling isExitCommand() will return false.
-     *
-     * @return An anonymous dummy Command that is not an ExitCommand.
-     */
-    static Command generateNonExitCommand() {
-        return new Command() {
-            @Override
-            public boolean isExitCommand() {
-                return false;
-            }
-
-            @Override
-            public boolean isUndoCommand() {
-                return false;
-            }
-
-            @Override
-            public boolean canBeUndone() {
-                return false;
-            }
-
-            @Override
-            public CommandResponse execute(TaskList taskList) {
-                return null;
-            }
-
-            @Override
-            public CommandResponse undo(TaskList taskList) {
-                return null;
-            }
-        };
-    }
-
-    /**
      * Returns true of this command is an ExitCommand.
      * Otherwise, returns false.
      *

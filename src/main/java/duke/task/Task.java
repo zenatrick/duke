@@ -5,7 +5,7 @@ package duke.task;
  * There are 3 types of tasks: Todo, Deadline and Event.
  */
 public abstract class Task {
-    protected String description;
+    protected final String description;
     protected boolean isDone;
 
     public Task(String description) {

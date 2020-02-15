@@ -11,7 +11,7 @@ import duke.exception.TaskIndexOutOfBoundException;
  * Represents the list of Task in the application.
  */
 public class TaskList {
-    private List<Task> taskList;
+    private final List<Task> taskList;
 
     /**
      * Constructs an empty TaskList.

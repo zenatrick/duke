@@ -24,7 +24,6 @@ class DukeDialogBox extends HBox {
      * Initialise the dialog box of duke with the specified text to be displayed.
      *
      * @param text The text to be displayed.
-     * @return The dialog box of duke.
      */
     DukeDialogBox(String text) {
         try {

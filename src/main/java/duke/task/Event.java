@@ -9,7 +9,7 @@ import static duke.common.DateTimeFormat.OUTPUT_DATE_TIME_FORMAT;
  * An Event is a type of Task which consist of a description and a time at which the Event is taking place.
  */
 public class Event extends Task {
-    private LocalDateTime at;
+    private final LocalDateTime at;
 
     /**
      * Constructs a new Event task with the specified description and time.
