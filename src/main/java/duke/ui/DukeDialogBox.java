@@ -37,6 +37,7 @@ class DukeDialogBox extends HBox {
         }
 
         dialog.setText(text);
-        avatar.setFill(new ImagePattern(new Image(this.getClass().getResourceAsStream("/images/DukeAvatar.png"))));
+        avatar.setFill(
+                new ImagePattern(new Image(this.getClass().getResourceAsStream("/images/DukeAvatar.png"))));
     }
 }

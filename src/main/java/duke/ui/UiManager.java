@@ -20,6 +20,7 @@ public class UiManager {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             primaryStage.setScene(scene);
+            scene.getStylesheets().add(getClass().getResource("/style/index.css").toExternalForm());
             primaryStage.setResizable(false);
             primaryStage.show();
             fxmlLoader.<MainWindow>getController().setDuke(duke);
