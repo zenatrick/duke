@@ -7,7 +7,6 @@ import duke.command.Command;
 import duke.command.CommandParser;
 import duke.command.CommandResponse;
 import duke.exception.IncorrectCommandException;
-import duke.exception.InvalidStorageFilePathException;
 import duke.exception.StorageOperationException;
 import duke.storage.Storage;
 import duke.task.TaskList;
@@ -16,7 +15,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
-import static duke.common.Messages.INVALID_ENCODING_MSG;
+import static duke.common.Messages.INVALID_ENCODING_ERROR_MSG;
 
 /**
  * Initializes the application and starts the interaction with the user.
@@ -51,36 +50,50 @@ public class Duke extends Application {
      */
     public String parseAndExecuteSingleCommand(String input) throws IncorrectCommandException,
             StorageOperationException {
-        Command command = CommandParser.parse(input);
-        if (command.isExitCommand()) {
-            exit();
-        }
-        if (hasFileStorageError) {
-            return INVALID_ENCODING_MSG;
-        }
-        CommandResponse commandResponse;
-        if (command.isUndoCommand()) {
-            // Pop the last command and undo
-            try {
-                commandResponse = commandHistory.pop().undo(taskList);
-            } catch (NoSuchElementException e) {
-                throw new IncorrectCommandException("Nothing to undo");
+        Command command;
+        try {
+            command = CommandParser.parse(input);
+
+            // Handles ExitCommand
+            if (command.isExitCommand()) {
+                exit();
             }
-        } else {
-            commandResponse = command.execute(taskList);
+
+            // Handles file storage error
+            if (hasFileStorageError) {
+                throw new StorageOperationException(INVALID_ENCODING_ERROR_MSG);
+            }
+
+            // Handles UndoCommand
+            if (command.isUndoCommand()) {
+                CommandResponse commandResponse = commandHistory.pop().undo(taskList);
+                storage.saveTaskListToStorage(taskList);
+                return commandResponse.toString();
+            }
+
+            // All other commands
+            CommandResponse commandResponse = command.execute(taskList);
             if (command.canBeUndone()) {
                 commandHistory.push(command);
             }
+            storage.saveTaskListToStorage(taskList);
+            return commandResponse.toString();
+        } catch (NoSuchElementException e) {
+            throw new IncorrectCommandException("Nothing to undo");
+        } catch (IncorrectCommandException | StorageOperationException e) {
+            // Handles file storage error
+            if (hasFileStorageError) {
+                throw new StorageOperationException(INVALID_ENCODING_ERROR_MSG);
+            }
+            throw e;
         }
-        storage.saveTaskListToStorage(taskList);
-        return commandResponse.toString();
+
     }
 
     /**
      * Initializes the storage for the application.
      */
-    public void initStorage() throws InvalidStorageFilePathException, StorageOperationException {
-        // Load task list from storage file.
+    public void initStorage() throws StorageOperationException {
         storage = new Storage();
         taskList = storage.loadTaskListFromStorage();
     }

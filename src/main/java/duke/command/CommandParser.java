@@ -8,6 +8,7 @@ import duke.exception.IncorrectCommandException;
 import static duke.common.DateTimeFormat.INPUT_DATE_TIME_FORMAT;
 import static duke.common.Messages.EMPTY_DESCRIPTION_ERROR_MSG;
 import static duke.common.Messages.EMPTY_TIME_ERROR_MSG;
+import static duke.common.Messages.INVALID_COMMAND_ERROR_MSG;
 import static duke.common.Messages.INVALID_INDEX_ERROR_MSG;
 import static duke.common.Messages.generateAddDeadlineErrorMessage;
 import static duke.common.Messages.generateAddEventErrorMessage;
@@ -82,7 +83,7 @@ public class CommandParser {
             return new ExitCommand();
         } else {
             // Invalid commands
-            throw new IncorrectCommandException("I'm sorry, but I don't know what that means.");
+            throw new IncorrectCommandException(INVALID_COMMAND_ERROR_MSG);
         }
     }
 

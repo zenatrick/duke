@@ -12,7 +12,7 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.Todo;
 
-import static duke.common.Messages.INVALID_ENCODING_MSG;
+import static duke.common.Messages.INVALID_ENCODING_ERROR_MSG;
 
 /**
  * Decodes the storage file data into a TaskList object.
@@ -54,7 +54,7 @@ class TaskDecoder {
                 break;
             default:
                 // Wrong format
-                throw new StorageOperationException(INVALID_ENCODING_MSG);
+                throw new StorageOperationException(INVALID_ENCODING_ERROR_MSG);
             }
 
             // Check if task is marked as done (only allow the value of 0 and 1).
@@ -63,11 +63,11 @@ class TaskDecoder {
                 task.markAsDone();
             } else if (doneValue != 0) {
                 // Wrong format
-                throw new StorageOperationException(INVALID_ENCODING_MSG);
+                throw new StorageOperationException(INVALID_ENCODING_ERROR_MSG);
             }
         } catch (IndexOutOfBoundsException | DateTimeParseException e) {
             // Wrong format
-            throw new StorageOperationException(INVALID_ENCODING_MSG);
+            throw new StorageOperationException(INVALID_ENCODING_ERROR_MSG);
         }
         return task;
     }

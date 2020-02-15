@@ -9,11 +9,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import duke.exception.InvalidStorageFilePathException;
 import duke.exception.StorageOperationException;
 import duke.task.TaskList;
 
-import static duke.common.Messages.INVALID_FILE_MSG;
 import static duke.common.Messages.generateReadFromFileErrorMessage;
 import static duke.common.Messages.generateWriteToFileErrorMessage;
 
@@ -28,27 +26,9 @@ public class Storage {
     /**
      * Constructs a new Storage instance with the default storage file path of "data/duke.txt".
      *
-     * @throws InvalidStorageFilePathException If the path of the storage file is invalid.
      */
-    public Storage() throws InvalidStorageFilePathException {
-        this(DEFAULT_STORAGE_FILEPATH);
-    }
-
-    /**
-     * Constructs a new Storage instance with the specified storage file path.
-     *
-     * @param filePath The path of the storage file.
-     * @throws InvalidStorageFilePathException If the path of the storage file is invalid.
-     */
-    public Storage(String filePath) throws InvalidStorageFilePathException {
-        file = new File(filePath);
-        if (!isValidFilePath()) {
-            throw new InvalidStorageFilePathException(INVALID_FILE_MSG);
-        }
-    }
-
-    private boolean isValidFilePath() {
-        return file.getPath().endsWith(".txt");
+    public Storage() {
+        file = new File(DEFAULT_STORAGE_FILEPATH);
     }
 
     /**

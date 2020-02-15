@@ -2,7 +2,6 @@ package duke.ui;
 
 import duke.Duke;
 import duke.exception.IncorrectCommandException;
-import duke.exception.InvalidStorageFilePathException;
 import duke.exception.StorageOperationException;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
@@ -40,7 +39,7 @@ public class MainWindow extends AnchorPane {
         showMessagesToUser(WELCOME_MSG);
         try {
             duke.initStorage();
-        } catch (InvalidStorageFilePathException | StorageOperationException e) {
+        } catch (StorageOperationException e) {
             showMessagesToUser(e.getMessage());
             d.enterStorageErrorMode();
         }

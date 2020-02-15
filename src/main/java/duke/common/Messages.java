@@ -22,8 +22,10 @@ public class Messages {
                     + "\tevent [description] /at [time]\n"
                     + "Time should be in the format of 'dd/MM/yyyy HH:mm'";
 
-    public static final String EMPTY_FIND_RESULT_MSG =
-            "There are no matching tasks in your list.";
+    /**
+     * The message displayed when find command returns no result.
+     */
+    public static final String EMPTY_FIND_RESULT_MSG = "There are no matching tasks in your list.";
 
     /**
      * The message displayed when the description of a task to be added is not specified.
@@ -44,15 +46,25 @@ public class Messages {
     /**
      * The message displayed when the application is unable to decode the storage file data.
      */
-    public static final String INVALID_ENCODING_MSG =
+    public static final String INVALID_ENCODING_ERROR_MSG =
             "Encoded task in your storage file has an invalid format.\n"
                     + "I am unable to decode.\n"
                     + "Please exit Duke and delete the corrupted file 'data/duke.txt'";
 
     /**
-     * The message displayed when the path of the storage file is invalid.
+     * The message displayed when a wrong command is entered by the user.
      */
-    public static final String INVALID_FILE_MSG = "Storage file must be a text file ending with .txt";
+    public static final String INVALID_COMMAND_ERROR_MSG =
+            "I'm sorry, but I don't know what that means.\n"
+                    + "Perhaps you can try typing these commands:\n"
+                    + "\ttodo [description]\n"
+                    + "\tdeadline [description] /by [time]\n"
+                    + "\tevent [description] /at [time]\n"
+                    + "\tlist\n"
+                    + "\tdone [task_index]\n"
+                    + "\tdelete [task_index]\n"
+                    + "\tfind [keyword]\n"
+                    + "\tundo\n";
 
     /**
      * Generates and returns the error message when the application is unable to write to the storage file.
